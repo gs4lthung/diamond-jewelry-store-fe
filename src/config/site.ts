@@ -9,20 +9,24 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "AboutUs",
-      href: "/aboutUs",
+      label: "Jewelry",
+      href: "/jewelry",
     },
     {
-      label: "Contact",
-      href: "/contact",
+      label: "Collections",
+      href: "/collections",
     },
     {
-      label: "Blog",
-      href: "/blog",
+      label: "Gemstones",
+      href: "/gemstones",
     },
     {
-      label: "Product",
-      href: "/listProduct",
+      label: "Materials",
+      href: "/materials",
+    },
+    {
+      label: "Education",
+      href: "/education",
     },
   ],
   navMenuItems: [

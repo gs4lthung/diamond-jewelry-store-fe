@@ -49,9 +49,14 @@ export const Navbar = () => {
   );
 
   return (
-    <NextUINavbar className="bg-gray-100" maxWidth="xl" position="sticky">
-      <NavbarContent className="basis-1/5 sm:basis-full " justify="start">
-      
+    <NextUINavbar maxWidth="xl" position="sticky">
+      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+        <NavbarBrand as="li" className="gap-3 max-w-fit">
+          <NextLink className="flex justify-start items-center gap-1" href="/">
+            <Logo />
+            <p className="font-bold text-inherit">ACME</p>
+          </NextLink>
+        </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
@@ -71,33 +76,44 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent
-  className="hidden sm:flex basis-1/5 sm:basis-full"
-  justify="end"
->
-  <NavbarBrand as="li" className="gap-3 max-w-fit mr-5">
-    <NextLink className="flex justify-start items-center gap-1" href="/">
-      <Logo />
-      <p className="font-bold text-inherit">DIAMOND STORE</p>
-    </NextLink>
-  </NavbarBrand>
-  <NavbarItem className="hidden lg:flex ml-5">{searchInput}</NavbarItem>
-</NavbarContent>
+        className="hidden sm:flex basis-1/5 sm:basis-full"
+        justify="end"
+      >
+        <NavbarItem className="hidden sm:flex gap-2">
+          <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
+            <TwitterIcon className="text-default-500" />
+          </Link>
+          <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
+            <DiscordIcon className="text-default-500" />
+          </Link>
+          <Link isExternal aria-label="Github" href={siteConfig.links.github}>
+            <GithubIcon className="text-default-500" />
+          </Link>
+          <ThemeSwitch />
+        </NavbarItem>
+        <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
+        <NavbarItem className="hidden md:flex">
+          <Button
+            isExternal
+            as={Link}
+            className="text-sm font-normal text-default-600 bg-default-100"
+            href={siteConfig.links.sponsor}
+            startContent={<HeartFilledIcon className="text-danger" />}
+            variant="flat"
+          >
+            Sponsor
+          </Button>
+        </NavbarItem>
+      </NavbarContent>
 
-      {/* <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
         <Link isExternal aria-label="Github" href={siteConfig.links.github}>
           <GithubIcon className="text-default-500" />
         </Link>
         <ThemeSwitch />
         <NavbarMenuToggle />
-      </NavbarContent> */}
-      <NavbarContent className="flex gap-10" justify="end"> {/* Use ml-auto to push to the right */}
-                <NavbarItem>
-                    <Link className="font-medium text-black hover:text-orange-600" color="foreground" href="/(auth)/signIn">Sign In</Link>
-                </NavbarItem>
-                <NavbarItem>
-                    <Link className="font-medium text-black hover:text-orange-600" color="foreground" href="/(auth)/signUp">Sign Up</Link>
-                </NavbarItem>
-            </NavbarContent>
+      </NavbarContent>
+
       <NavbarMenu>
         {searchInput}
         <div className="mx-4 mt-2 flex flex-col gap-2">
