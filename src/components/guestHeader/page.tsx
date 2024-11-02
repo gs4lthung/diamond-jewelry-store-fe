@@ -92,10 +92,10 @@ export const Navbar = () => {
       </NavbarContent> */}
       <NavbarContent className="flex gap-10" justify="end"> {/* Use ml-auto to push to the right */}
                 <NavbarItem>
-                    <Link className="font-medium text-black hover:text-orange-600" color="foreground" href="/auth/signIn">Sign In</Link>
+                    <Link className="font-medium text-black hover:text-orange-600" color="foreground" href="/(auth)/signIn">Sign In</Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link className="font-medium text-black hover:text-orange-600" color="foreground" href="/auth/signUp">Sign Up</Link>
+                    <Link className="font-medium text-black hover:text-orange-600" color="foreground" href="/(auth)/signUp">Sign Up</Link>
                 </NavbarItem>
             </NavbarContent>
       <NavbarMenu>

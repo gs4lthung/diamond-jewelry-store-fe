@@ -81,7 +81,7 @@ const LoginForm = () => {
           
           <CardFooter>
             Already have an account?
-            <Link href='/auth/signUp'>
+            <Link href='/(auth)/signUp'>
               <span className='text-default-500 hover:text-orange-600'> Sign Up Here </span>
             </Link>
           </CardFooter>
