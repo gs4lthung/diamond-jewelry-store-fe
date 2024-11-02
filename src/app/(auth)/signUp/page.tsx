@@ -95,7 +95,7 @@ export default function Signup() {
             <CardFooter>
               <p className="mt-6 text-center">
                 Already have an account?{' '}
-                <Link href="/(auth)/signIn" className="text-green-600 hover:underline">Login</Link>
+                <Link href="/signIn" className="text-green-600 hover:underline">Login</Link>
               </p>
             </CardFooter>
           </div>

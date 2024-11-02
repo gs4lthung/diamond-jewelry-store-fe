@@ -9,11 +9,11 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Jewelry",
-      href: "/jewelry",
+      label: "About Us",
+      href: "/aboutUs",
     },
     {
-      label: "Collections",
+      label: "Contact",
       href: "/collections",
     },
     {
