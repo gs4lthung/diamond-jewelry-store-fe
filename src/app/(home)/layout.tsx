@@ -1,4 +1,7 @@
-import { Navbar } from "@/components/navbar";
+import Footer from "@/components/guestFooter/page";
+import { Navbar } from "@/components/guestHeader/page";
+
+
 import React from "react";
 
 export default function HomeLayout({
@@ -9,7 +12,10 @@ export default function HomeLayout({
   return (
     <div>
       <Navbar />
+      {/* <GuestHeader/> */}
+        
         {children}
+        <Footer/>
     </div>
   );
 }
