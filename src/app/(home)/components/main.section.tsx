@@ -2,9 +2,9 @@
 
 // components/MainSection.js
 import { useState, useEffect } from "react";
-import image1 from "../../../public/assets/img/48e1ed0354fd2194a114ac06c46ee3d7.png";
-import image2 from "../../../public/assets/img/cs2.png"; // Ensure this image exists
-import image3 from "../../../public/assets/img/cs3.png"; // Ensure this image exists
+import image1 from "../../../../public/assets/img/48e1ed0354fd2194a114ac06c46ee3d7.png";
+import image2 from "../../../../public/assets/img/cs2.png"; // Ensure this image exists
+import image3 from "../../../../public/assets/img/cs3.png"; // Ensure this image exists
 import Image from "next/image";
 
 const images = [image1, image2, image3]; // Array of images
@@ -62,7 +62,7 @@ const MainSection = () => {
       </section>
 
       {/* Welcome Section */}
-      <section className="py-16 text-center bg-white">
+      {/* <section className="py-16 text-center bg-white">
         <h3 className="text-3xl font-semibold text-yellow-500 mb-4">
           KIRA Jewelry - The Paradise of Diamond Jewelry
         </h3>
@@ -70,7 +70,7 @@ const MainSection = () => {
           Welcome to KIRA Jewelry, where the beauty of each unique gemstone meets exquisite craftsmanship. Our curated collection features a diverse range of precious and semi-precious gemstones, including Ruby, Sapphire, Emerald, and more, each chosen for its unique beauty and symbolism. Crafted with precision and attention to detail, our pieces exude elegance and sophistication.
         </p>
         
-      </section>
+      </section> */}
 
       {/* Feature Icons */}
       <section className="py-12 bg-gray-100 flex justify-around items-center text-center">

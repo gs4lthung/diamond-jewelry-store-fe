@@ -1,6 +1,5 @@
-
-import Footer from "@/components/guestFooter/page";
-import { Navbar } from "@/components/guestHeader/page";
+import Footer from "@/components/footer";
+import { Navbar } from "@/components/navbar";
 
 import React from "react";
 
