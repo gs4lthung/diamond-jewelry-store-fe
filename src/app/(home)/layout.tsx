@@ -1,3 +1,5 @@
+import Footer from "@/components/guestFooter/page";
+import GuestHeader from "@/components/guestHeader/page";
 import { Navbar } from "@/components/navbar";
 import React from "react";
 
@@ -9,7 +11,10 @@ export default function HomeLayout({
   return (
     <div>
       <Navbar />
+      <GuestHeader/>
+        
         {children}
+        <Footer/>
     </div>
   );
 }
