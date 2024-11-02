@@ -51,7 +51,7 @@ export default function Footer() {
 
 
                     <div>
-                        <h2 className="mb-4 text-sm font-semibold uppercase">TRANG CHỦ </h2>
+                        <h2 className="mb-4 text-sm font-semibold uppercase">HOME PAGE </h2>
                         <ul className="text-gray-400">
                             <li className="mb-2">
                                 <Link href="/" className="hover:text-white">
@@ -79,7 +79,7 @@ export default function Footer() {
 
 
                     <div>
-                        <h2 className="mb-4 text-sm font-semibold uppercase">LIÊN HỆ</h2>
+                        <h2 className="mb-4 text-sm font-semibold uppercase">OUR CONTACT</h2>
                         <ul className="text-gray-400">
                             <li className="mb-2">Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Hồ Chí Minh 700000</li>
                             <li className="mb-2">
@@ -99,7 +99,7 @@ export default function Footer() {
 
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <span className="text-sm text-gray-400 mb-4 md:mb-0">
-                        &copy;2024, PET SPA - SWP 391.
+                        &copy;2024, DIAMOND- JEWERLY - STORE.
                     </span>
                     <div className="flex space-x-4">
                         <a href="https://www.facebook.com/profile.php?id=100028204926907" className="text-gray-400 hover:text-white">
