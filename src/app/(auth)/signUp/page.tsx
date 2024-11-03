@@ -1,105 +1,159 @@
 "use client";
 
-import { Button, Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react';
-import { FaArrowAltCircleLeft } from 'react-icons/fa';
+import { useState } from 'react';
 import Image from 'next/image';
-import image2 from '../../../../public/assets/img/diamond.png';
-import Link from 'next/link';
-// import { useRouter } from 'next/navigation';
+import signupImg from '../../../../public/assets/img/Leonardo_Phoenix_A_luxurious_diamond_store_interior_with_rows_1.jpg';
+import { Button, Card, CardBody, CardFooter, CardHeader, Link } from '@nextui-org/react';
+import { FaArrowAltCircleLeft } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { useRouter } from 'next/navigation';
 
 export default function Signup() {
-//   const router = useRouter();
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <section className="relative">
-     <Link href="/">
-        <Button
-          startContent={<FaArrowAltCircleLeft />}
-          className="bg-gradient-to-tr absolute m-5 from-pink-500 to-yellow-500 text-white shadow-lg z-20"
-        >
-          Back to Home Page
-        </Button>
-      </Link>
+    <section className="min-h-screen flex items-center justify-center p-2 bg-gray-50">
+      <Button
+        startContent={<FaArrowAltCircleLeft />}
+        className="absolute top-5 left-5 bg-gradient-to-tr from-amber-600 to-amber-800 text-white shadow-lg"
+        onClick={() => router.push('/')}
+      >
+        Back to Home Page
+      </Button>
 
-      <Card >
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-          <div className="w-full max-w-[800px] p-8 bg-white rounded-lg shadow-lg relative">
-            <CardHeader className="justify-center mb--20">
-              <h2 className="mb-8 text-2xl font-semibold text-center text-green-700">Create Account</h2>
-            </CardHeader>
-
-            {/* Image positioned outside the form */}
-            <div className="absolute right-[-100px] top-1/4 z-10">
+      <Card className="w-full max-w-3xl md:max-w-4xl">
+        <CardBody className="flex flex-col md:flex-row p-0 gap-0">
+          {/* Left side with image */}
+          <div className="w-full md:w-1/2">
+            <div className="relative h-[150px] md:h-full">
               <Image
-                src={image2}
-                alt="Jewelry Image"
-                width={400}
-                height={450}
+                src={signupImg}
+                alt="Signup Image"
+                fill
                 className="object-cover"
+                priority
               />
             </div>
+          </div>
 
-            <CardBody>
-              <form className="space-y-6">
-                <div className="max-w-[500px]">
-                  <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
+          {/* Right side with signup form */}
+          <div className="w-full md:w-1/2 p-4 md:p-6">
+            <div className="flex flex-col h-full">
+              {/* Header */}
+              <div className="text-center mb-6">
+                <h2 className="text-2xl md:text-3xl font-light text-amber-700">
+                  Create Account
+                </h2>
+              </div>
+
+              {/* Form */}
+              <form className="space-y-4 flex-grow">
+                <div className="space-y-1">
+                  <label className="text-gray-700" htmlFor="fullName">
                     Full Name
                   </label>
                   <input
                     type="text"
                     id="fullName"
                     placeholder="Enter your full name"
-                    className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-green-500 focus:border-green-500"
+                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    required
                   />
                 </div>
-                <div className="max-w-[500px]">
-                  <label htmlFor="birthday" className="block text-sm font-medium text-gray-700">
+
+                <div className="space-y-1">
+                  <label className="text-gray-700" htmlFor="birthday">
                     Birthday
                   </label>
                   <input
                     type="date"
                     id="birthday"
-                    className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-green-500 focus:border-green-500"
+                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    required
                   />
                 </div>
-                <div className="max-w-[500px]">
-                  <label htmlFor="emailOrPhone" className="block text-sm font-medium text-gray-700">
+
+                <div className="space-y-1">
+                  <label className="text-gray-700" htmlFor="emailOrPhone">
                     Email or phone number
                   </label>
                   <input
                     type="text"
                     id="emailOrPhone"
                     placeholder="Enter email or phone number"
-                    className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-green-500 focus:border-green-500"
+                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    required
                   />
                 </div>
-                <div className="max-w-[500px]">
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+
+                <div className="space-y-1">
+                  <label className="text-gray-700" htmlFor="password">
                     Password
                   </label>
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter at least 8+ characters"
-                    className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-green-500 focus:border-green-500"
-                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      placeholder="Enter password"
+                      className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 pr-10"
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <FiEyeOff className="w-5 h-5" />
+                      ) : (
+                        <FiEye className="w-5 h-5" />
+                      )}
+                    </button>
+                  </div>
                 </div>
+
                 <button
                   type="submit"
-                  className="w-full max-w-[500px] py-2 mt-4 text-white bg-gradient-to-tr from-pink-500 to-yellow-500 rounded-lg shadow-lg hover:opacity-90 focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50"
+                  className="w-full bg-amber-700 text-white py-2 rounded-md font-semibold hover:bg-amber-800 transition duration-300"
                 >
-                  Create Account
+                  Sign Up
+                </button>
+
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-200"></div>
+                  </div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-2 bg-white text-gray-500">OR</span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  className="w-full flex items-center justify-center gap-2 py-2 px-3 border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
+                >
+                  <FcGoogle className="w-5 h-5" />
+                  Sign Up With Google
                 </button>
               </form>
-            </CardBody>
-            <CardFooter>
-              <p className="mt-6 text-center">
-                Already have an account?{' '}
-                <Link href="/signIn" className="text-green-600 hover:underline">Login</Link>
-              </p>
-            </CardFooter>
+
+              {/* Footer */}
+              <div className="text-center mt-4">
+                <p className="text-gray-500">
+                  Already have an account?{' '}
+                  <Link
+                    href='/signIn'
+                    className="text-amber-700 hover:text-amber-800 font-medium"
+                  >
+                    Sign In
+                  </Link>
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+        </CardBody>
       </Card>
     </section>
   );
