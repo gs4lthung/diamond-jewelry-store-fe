@@ -101,9 +101,6 @@ importers:
       react-toastify:
         specifier: ^10.0.6
         version: 10.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      slick-carousel:
-        specifier: ^1.8.1
-        version: 1.8.1(jquery@3.7.1)
       swiper:
         specifier: ^11.1.14
         version: 11.1.14
@@ -6638,6 +6635,7 @@ snapshots:
       react-icons: 5.3.0(react@18.3.1)
       react-redux: 9.1.2(@types/react@18.3.3)(react@18.3.1)(redux@5.0.1)
       react-slick: 0.30.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-toastify: 10.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       slick-carousel: 1.8.1(jquery@3.7.1)
       swiper: 11.1.14
     transitivePeerDependencies:

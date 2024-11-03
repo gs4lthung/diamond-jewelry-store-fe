@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
-import signupImg from '../../../../public/assets/img/Leonardo_Phoenix_A_luxurious_diamond_store_interior_with_rows_1.jpg';
-import { Button, Card, CardBody, Link } from '@nextui-org/react';
-import { FaArrowAltCircleLeft } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import Image from "next/legacy/image";
+import signupImg from "../../../../public/assets/img/Leonardo_Phoenix_A_luxurious_diamond_store_interior_with_rows_1.jpg";
+import { Button, Card, CardBody, Link } from "@nextui-org/react";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
   const router = useRouter();
@@ -19,7 +19,7 @@ export default function Signup() {
       <Button
         startContent={<FaArrowAltCircleLeft />}
         className="absolute top-5 right-5 bg-gradient-to-tr from-amber-600 to-amber-800 text-white shadow-lg"
-        onClick={() => router.push('/')}
+        onClick={() => router.push("/")}
       >
         Back to Home Page
       </Button>
@@ -30,14 +30,16 @@ export default function Signup() {
           <Image
             src={signupImg}
             alt="Signup Image"
-            fill
-            className="object-cover"
+            layout="fill"
+            objectFit="cover"
             priority
           />
         </div>
 
         {/* Right side with signup form */}
-        <div className="w-[1200px] h-screen flex justify-center items-center"> {/* Centering form vertically */}
+        <div className="w-[1200px] h-screen flex justify-center items-center">
+          {" "}
+          {/* Centering form vertically */}
           <div className="w-full max-w-md p-6  ">
             <div className="text-center mb-6">
               <h2 className="text-3xl md:text-4xl font-semibold text-amber-700">
@@ -139,9 +141,9 @@ export default function Signup() {
             {/* Footer */}
             <div className="text-center mt-4">
               <p className="text-gray-500">
-                Already have an account?{' '}
+                Already have an account?{" "}
                 <Link
-                  href='/signIn'
+                  href="/signIn"
                   className="text-amber-700 hover:text-amber-800 font-medium"
                 >
                   Sign In

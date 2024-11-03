@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
 // components/MainSection.js
 import { useState, useEffect } from "react";
 import image1 from "../../../../public/assets/img/48e1ed0354fd2194a114ac06c46ee3d7.png";
 import image2 from "../../../../public/assets/img/cs2.png"; // Ensure this image exists
 import image3 from "../../../../public/assets/img/cs3.png"; // Ensure this image exists
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 const images = [image1, image2, image3]; // Array of images
 
@@ -32,7 +32,12 @@ const MainSection = () => {
                 index === currentImageIndex ? "opacity-100" : "opacity-0"
               }`}
             >
-              <Image src={image} alt={`Image ${index + 1}`} layout="fill" objectFit="cover" />
+              <Image
+                src={image}
+                alt={`Image ${index + 1}`}
+                layout="fill"
+                objectFit="cover"
+              />
             </div>
           ))}
         </div>
@@ -40,7 +45,9 @@ const MainSection = () => {
           <h2 className="text-3xl mb-4 mt-10">Our Latest Order</h2>
           <h2 className="text-5xl font-bold mb-9">Aventurine Ring</h2>
           <p className="text-xl mb-8">
-            Produce an image of an aventurine ring featuring shimmering green gemstones flecked with golden inclusions, evoking the beauty of sunlight filtering through leaves.
+            Produce an image of an aventurine ring featuring shimmering green
+            gemstones flecked with golden inclusions, evoking the beauty of
+            sunlight filtering through leaves.
           </p>
           <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-6 rounded">
             Order Your Own
