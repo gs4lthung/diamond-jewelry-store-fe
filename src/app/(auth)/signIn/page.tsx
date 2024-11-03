@@ -20,8 +20,8 @@ const LoginForm = () => {
         <Image
           src={loginImg}
           alt="Jewelry Image"
-          fill
-          className="object-cover"
+          layout='fill'
+          style={{objectFit: 'cover'}}
           priority
         />
       </div>

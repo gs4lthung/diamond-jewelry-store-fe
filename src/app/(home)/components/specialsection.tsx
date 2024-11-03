@@ -19,8 +19,9 @@ export default function SpecialCollection() {
            <Image 
                 src={image1} 
                 alt="Jewelry Image" 
-               
-                 className="w-[500px] h-[430px] object-cover rounded-lg shadow-lg"
+                style={{objectFit: 'cover'}}
+
+                 className="w-[500px] h-[430px] rounded-lg shadow-lg"
               />
         </div>
         <div className="flex-1">
@@ -29,7 +30,8 @@ export default function SpecialCollection() {
                 alt="Jewelry Image" 
                 width={400}
                 height={400}
-                 className="w-full h-auto object-cover rounded-lg shadow-lg"
+                 className="w-full h-auto rounded-lg shadow-lg"
+                 style={{objectFit: 'cover'}}
               />
         </div>
       </div>

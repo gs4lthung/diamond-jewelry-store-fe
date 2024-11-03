@@ -3,7 +3,7 @@ import React from "react";
 import MainSection from "./components/main.section";
 import AboutSection from "./components/aboutsection";
 import SpecialCollection from "./components/specialsection";
-import CarouselService from "./components/carouselService";
+// import CarouselService from "./components/carouselService";
 
 export default function Home() {
   return (
@@ -19,7 +19,7 @@ export default function Home() {
                
           
            
-                <CarouselService />
+                {/* <CarouselService /> */}
            
       </div>
     </div>
