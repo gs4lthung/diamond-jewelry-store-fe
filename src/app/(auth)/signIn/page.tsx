@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import loginImg from '../../../../public/assets/img/SignIn.jpg';
 import { Card, CardBody, Link } from '@nextui-org/react';
 import { FaArrowAltCircleLeft } from 'react-icons/fa';
@@ -21,7 +21,7 @@ const LoginForm = () => {
           src={loginImg}
           alt="Jewelry Image"
           layout='fill'
-          style={{objectFit: 'cover'}}
+          objectFit="cover"
           priority
         />
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import signupImg from "../../../../public/assets/img/Leonardo_Phoenix_A_luxurious_diamond_store_interior_with_rows_1.jpg";
 import { Button, Card, CardBody, Link } from "@nextui-org/react";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
@@ -31,7 +31,7 @@ export default function Signup() {
             src={signupImg}
             alt="Signup Image"
             layout="fill"
-            style={{ objectFit: "cover" }}
+            objectFit="cover"
             priority
           />
         </div>

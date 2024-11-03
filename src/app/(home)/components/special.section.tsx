@@ -1,5 +1,5 @@
 // components/SpecialCollection.js
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import React from 'react';
 import image1 from "../../../../public/assets/img/cl1.png";
 import image2 from "../../../../public/assets/img/cl2.png";
@@ -19,7 +19,7 @@ export default function SpecialCollection() {
            <Image 
                 src={image1} 
                 alt="Jewelry Image" 
-                style={{objectFit: 'cover'}}
+                objectFit="cover"
 
                  className="w-[500px] h-[430px] rounded-lg shadow-lg"
               />
@@ -31,7 +31,7 @@ export default function SpecialCollection() {
                 width={400}
                 height={400}
                  className="w-full h-auto rounded-lg shadow-lg"
-                 style={{objectFit: 'cover'}}
+                 objectFit="cover"
               />
         </div>
       </div>
