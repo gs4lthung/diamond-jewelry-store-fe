@@ -7,7 +7,7 @@ import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
-import { Navbar } from "@/components/guestHeader/page";
+
 import { headers } from "next/headers";
 
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
+        <Providers>
             <main>{children}</main>
         </Providers>
       </body>

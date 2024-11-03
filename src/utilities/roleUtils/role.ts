@@ -1,6 +1,6 @@
-// export const ROLE = {
-//   role1: "CUSTOMER",
-//   role2: "SHOP_OWNER",
-//   role3: "ADMIN",
+export const ROLE = {
+  role1: "CUSTOMER",
+  role2: "MANAGER",
+  role3: "ADMIN",
 
-// };
+};
