@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
+import ScrollToTopBtn from "@/components/button/scrollToTopBtn";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -21,10 +22,11 @@ export function Providers({ children, themeProps }: ProvidersProps) {
         {children}
         <ProgressBar
           height="4px"
-          color="#5b3724"
+          color="#755543"
           options={{ showSpinner: false }}
           shallowRouting={true}
         />
+        <ScrollToTopBtn/>
       </NextThemesProvider>
     </NextUIProvider>
   );
