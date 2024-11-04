@@ -11,12 +11,12 @@ export default function Home() {
   return (
     <div className="bg-gray-100">
       <div className="bg-gray-100">
-        <MainSection/>
-        <AboutSection/>
-        <SpecialCollection/>
-                <CarouselService />
-                <InspiringDesign/>
-           <BrilliantSection/>
+        <MainSection />
+        <AboutSection />
+        <SpecialCollection />
+        <CarouselService />
+        <InspiringDesign />
+        <BrilliantSection />
       </div>
     </div>
   );
