@@ -11,7 +11,7 @@ import { siteConfig } from "@/config/site";
 
 export const Navbar = () => {
   return (
-    <NextUINavbar className="bg-white text-gray-800 shadow-sm" maxWidth="xl" position="sticky" style={{ top: 80 }}>
+    <NextUINavbar className="bg-white text-gray-800 shadow-sm" maxWidth="xl" position="static" style={{ top: 80 }}>
       <div className="flex items-center justify-center gap-8 py-4 w-full max-w-4xl mx-auto">
         {siteConfig.navItems.map((item) => (
           <NavbarItem key={item.href}>

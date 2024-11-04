@@ -11,6 +11,7 @@ import clsx from "clsx";
 import imageLogo from "../../public/assets/img/download.png";
 import { siteConfig } from "@/config/site";
 import Image from "next/image";
+import { ThemeSwitch } from "./theme-switch";
 
 export const HeaderAuth = () => {
   return (
@@ -27,6 +28,9 @@ export const HeaderAuth = () => {
             <Link href="/signUp" className="text-gray-700 hover:text-orange-600 font-medium">
               Sign Up
             </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <ThemeSwitch/>
           </NavbarItem>
         </NavbarContent>
       </div>

@@ -43,7 +43,7 @@ export default function RootLayout({
         )}
       >
         <Providers>
-            <main>{children}</main>
+          <main>{children}</main>
         </Providers>
       </body>
     </html>

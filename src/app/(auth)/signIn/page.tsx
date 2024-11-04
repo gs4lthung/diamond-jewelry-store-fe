@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import Image from "next/legacy/image";
-import loginImg from '../../../../public/assets/img/SignIn.jpg';
-import { Card, CardBody, Link } from '@nextui-org/react';
-import { FaArrowAltCircleLeft } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { useRouter } from 'next/navigation';
+import loginImg from "../../../../public/assets/img/SignIn.jpg";
+import { Card, CardBody, Link } from "@nextui-org/react";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { useRouter } from "next/navigation";
+import BackHomeBtn from "@/components/button/backHomeBtn";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -20,7 +21,7 @@ const LoginForm = () => {
         <Image
           src={loginImg}
           alt="Jewelry Image"
-          layout='fill'
+          layout="fill"
           objectFit="cover"
           priority
         />
@@ -29,14 +30,7 @@ const LoginForm = () => {
       {/* Right side with login form */}
       <div className="flex w-[1200] h-screen justify-center items-center relative">
         {/* Back to Home Page button */}
-        <button
-          onClick={() => router.push('/')}
-          className="absolute top-5 right-5 bg-gradient-to-tr from-amber-600 to-amber-800 text-white py-2 px-4 rounded-lg shadow-lg flex items-center gap-2"
-        >
-          <FaArrowAltCircleLeft />
-          Back to Home Page
-        </button>
-
+       <BackHomeBtn/>
         <Card className="w-1/2 border-none shadow-none bg-transparent">
           <CardBody className="p-6">
             <div className="text-center mb-6">
@@ -98,8 +92,8 @@ const LoginForm = () => {
                   <span className="ml-2 text-gray-600">Remember me</span>
                 </label>
                 <Link
-                  href='/forgotPass'
-                  className='text-blue-600 hover:text-amber-700 transition-colors'
+                  href="/forgotPass"
+                  className="text-blue-600 hover:text-amber-700 transition-colors"
                 >
                   Forgot Password?
                 </Link>
@@ -133,9 +127,9 @@ const LoginForm = () => {
             {/* Footer */}
             <div className="text-center mt-6">
               <p className="text-gray-500">
-                Don't have an account?{' '}
+                Don't have an account?{" "}
                 <Link
-                  href='/signUp'
+                  href="/signUp"
                   className="text-amber-700 hover:text-amber-800 font-medium"
                 >
                   Sign Up

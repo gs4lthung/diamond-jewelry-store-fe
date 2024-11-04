@@ -8,6 +8,7 @@ import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useRouter } from "next/navigation";
+import BackHomeBtn from "@/components/button/backHomeBtn";
 
 export default function Signup() {
   const router = useRouter();
@@ -16,13 +17,7 @@ export default function Signup() {
   return (
     <section className="min-h-screen flex bg-gray-50 relative">
       {/* Back to Home Page button */}
-      <Button
-        startContent={<FaArrowAltCircleLeft />}
-        className="absolute top-5 right-5 bg-gradient-to-tr from-amber-600 to-amber-800 text-white shadow-lg"
-        onClick={() => router.push("/")}
-      >
-        Back to Home Page
-      </Button>
+      <BackHomeBtn />
 
       <div className="flex w-full">
         {/* Left side with image */}

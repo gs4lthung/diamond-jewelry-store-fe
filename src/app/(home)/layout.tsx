@@ -15,9 +15,7 @@ export default function HomeLayout({
 
     <div className="flex flex-col">
       <HeaderAuth />
-      
       <HeaderLogo />
-      
       <Navbar />
       <main className="flex-grow w-full">{children}</main>
       <Footer />
