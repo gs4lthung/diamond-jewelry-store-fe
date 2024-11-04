@@ -1,8 +1,9 @@
 // components/SpecialCollection.js
 import Image from "next/legacy/image";
-import React from 'react';
+import React from "react";
 import image1 from "../../../../public/assets/img/cl1.png";
 import image2 from "../../../../public/assets/img/cl2.png";
+
 export default function SpecialCollection() {
   return (
     <section className="flex flex-col items-center py-16 bg-gray-900 text-center text-white">
@@ -15,24 +16,24 @@ export default function SpecialCollection() {
       {/* Image Gallery */}
       <div className="mt-8 flex flex-col md:flex-row gap-8 max-w-4xl">
         <div className="flex-1">
-    
-           <Image 
-                src={image1} 
-                alt="Jewelry Image" 
-                objectFit="cover"
-
-                 className="w-[500px] h-[430px] rounded-lg shadow-lg"
-              />
+          <Image
+            src={image1}
+            alt="Jewelry Image 1"
+            width={400}
+            height={400}
+            style={{ objectFit: "cover" }}
+            className="rounded-lg shadow-lg"
+          />
         </div>
         <div className="flex-1">
-        <Image 
-                src={image2} 
-                alt="Jewelry Image" 
-                width={400}
-                height={400}
-                 className="w-full h-auto rounded-lg shadow-lg"
-                 objectFit="cover"
-              />
+          <Image
+            src={image2}
+            alt="Jewelry Image 2"
+            width={400}
+            height={400}
+            style={{ objectFit: "cover" }}
+            className="rounded-lg shadow-lg"
+          />
         </div>
       </div>
 
