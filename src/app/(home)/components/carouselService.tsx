@@ -49,40 +49,39 @@ export default function CarouselService() {
             imageUrl: "https://img.pikbest.com/wp/202347/3d-rendering-rendered-diamond-image_9770992.jpg!w700wp"
         },
         {
-            id: 5,
-            title: "Beauty Secrets",
+            id: 6,
+            title: "Makeup Tips",
             author: "Chloe Martinez",
             date: "Aug 19",
-            description: "Discover beauty secrets and skincare routines...",
+            description: "Explore the latest makeup tips and trends...",
             imageUrl: "https://img.pikbest.com/wp/202347/3d-rendering-rendered-diamond-image_9770992.jpg!w700wp"
         },
         {
-            id: 5,
-            title: "Beauty Secrets",
+            id: 7,
+            title: "Fashion Accessories",
             author: "Chloe Martinez",
             date: "Aug 19",
-            description: "Discover beauty secrets and skincare routines...",
+            description: "Learn how to choose the best fashion accessories...",
             imageUrl: "https://img.pikbest.com/wp/202347/3d-rendering-rendered-diamond-image_9770992.jpg!w700wp"
         },
         {
-            id: 5,
-            title: "Beauty Secrets",
+            id: 8,
+            title: "Skincare Routine",
             author: "Chloe Martinez",
             date: "Aug 19",
-            description: "Discover beauty secrets and skincare routines...",
+            description: "Discover the best skincare routines for healthy skin...",
             imageUrl: "https://img.pikbest.com/wp/202347/3d-rendering-rendered-diamond-image_9770992.jpg!w700wp"
         },
         {
-            id: 5,
-            title: "Beauty Secrets",
+            id: 9,
+            title: "Trendy Outfits",
             author: "Chloe Martinez",
             date: "Aug 19",
-            description: "Discover beauty secrets and skincare routines...",
+            description: "Stay ahead of the fashion curve with trendy outfits...",
             imageUrl: "https://img.pikbest.com/wp/202347/3d-rendering-rendered-diamond-image_9770992.jpg!w700wp"
         }
-
-        // ... thêm các mục khác nếu cần
     ];
+    
 
     const goToPrevious = () => {
         setCurrentSlide((prevSlide) => (prevSlide === 0 ? services.length - 1 : prevSlide - 1));

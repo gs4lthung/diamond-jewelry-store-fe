@@ -15,7 +15,11 @@ import { ThemeSwitch } from "./theme-switch";
 
 export const HeaderAuth = () => {
   return (
-    <NextUINavbar className="bg-white text-gray-800 shadow-sm " maxWidth="xl" style={{ position: "sticky", top: 0, zIndex: 50 }}>
+    <NextUINavbar
+      className="bg-white text-gray-800 shadow-sm"
+      maxWidth="xl"
+      style={{ position: "sticky", top: 0, zIndex: 50 }} // Use sticky to stay at the top while scrolling
+    >
       {/* Right-aligned Sign In / Sign Up Links */}
       <div className="ml-auto">
         <NavbarContent className="flex gap-8 ml-40"> {/* ml-auto pushes content to the right */}
@@ -30,7 +34,7 @@ export const HeaderAuth = () => {
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <ThemeSwitch/>
+            <ThemeSwitch />
           </NavbarItem>
         </NavbarContent>
       </div>
