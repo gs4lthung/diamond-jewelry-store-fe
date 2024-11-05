@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import imageLogo from "../../public/assets/img/download.png";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -12,7 +14,7 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-start space-y-2 md:space-y-3">
             <div className="flex items-center space-x-2">
               {/* Logo */}
-              <img src="/path-to-your-logo.png" alt="Logo" className="w-10 h-10" />
+              <Image src={imageLogo} alt="Logo" className="w-10 h-10" />
               {/* Company Name */}
               <span className="text-2xl font-mono font-bold">KIRA JEWELRY</span>
             </div>
