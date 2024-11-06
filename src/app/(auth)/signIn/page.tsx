@@ -1,23 +1,102 @@
 "use client";
-
+import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { useState } from "react";
 import Image from "next/legacy/image";
 import loginImg from "../../../../public/assets/img/SignIn.jpg";
-import { Card, CardBody, Link } from "@nextui-org/react";
-import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { Button, Card, CardBody, Link, Spinner } from "@nextui-org/react";
 import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useRouter } from "next/navigation";
+import * as Yup from 'yup';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 import BackHomeBtn from "@/components/button/backHomeBtn";
+import { loginFailure, loginStart } from '@/lib/redux/slice/authSlice';
+import { LoginError } from '@/utilities/authUtils/loginValidation';
+import { useAppDispatch } from '@/lib/redux/store';
+import { LoginInput } from '@/models/authentication';
+import baseApi from '@/utilities/baseApi';
+import { ROLE } from '@/utilities/roleUtils/role';
+import Cookies from 'js-cookie';
+import { Field, Form, Formik } from 'formik';
+import { MyInput, MyInputPassword } from '@/components/ui/loginInput';
 
-const LoginForm = () => {
+interface roleJwt extends JwtPayload {
+  role: string;
+  userId: string;
+}
+
+export default function Login() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const initialValues: LoginInput = {
+      username: '',
+      password: '',
+  };
+
+  const validationSchema = Yup.object().shape({
+    username: Yup.string()
+        .required('Tên người dùng là bắt buộc')
+        .min(3, 'Tên người dùng phải có ít nhất 3 ký tự')
+        .max(20, 'Tên người dùng không được vượt quá 20 ký tự'),
+    password: Yup.string()
+        .required('Mật khẩu là bắt buộc')
+        .min(6, 'Mật khẩu phải có ít nhất 6 ký tự')
+        .max(20, 'Mật khẩu không được vượt quá 20 ký tự'),
+  });
+
+  const dispatch = useAppDispatch();
+
+  const handleLogin = async (values: LoginInput) => {
+    setIsLoading(true);
+    dispatch(loginStart());
+    try {
+      const { data } = await baseApi.post(`api/v1/auth/signin`, values);
+
+      toast.success("Đăng nhập thành công! Bạn sẽ chuyển đến trang chủ trong giây lát...", {
+        onClose: () => router.replace('/'),
+        autoClose: 1000,
+      });
+
+      const decodedToken = jwtDecode(data.token) as roleJwt;
+      Cookies.set('token', data.token, { expires: 1 });
+      Cookies.set('role', decodedToken.role, { expires: 1 });
+      Cookies.set('userId', decodedToken.userId, { expires: 1 });
+
+      switch (decodedToken.role) {
+        case ROLE.role1:
+          router.replace(`/`);
+          break;
+        case ROLE.role2:
+          router.replace(`/shopOwner`);
+          break;
+        case ROLE.role3:
+          router.replace(`/admin`);
+          break;
+        default:
+          break;
+      }
+
+      localStorage.setItem("token", data.token);
+    } catch (error) {
+      toast.error("Đăng nhập không thành công! Bạn hãy kiểm tra lại tài khoản và mật khẩu của bạn.");
+      if (error instanceof AxiosError) {
+        const errorResponse = error?.response?.data?.error?.message;
+        const translatedError = LoginError[errorResponse as keyof typeof LoginError];
+        dispatch(loginFailure(translatedError ?? "Đã có lỗi xảy ra"));
+      } else {
+        dispatch(loginFailure("Đã có lỗi xảy ra"));
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <section className="min-h-screen flex bg-gray-50">
-      {/* Left side with image */}
-      <div className="relative w-[800] h-screen">
+      <div className="relative w-1/2 h-screen">
         <Image
           src={loginImg}
           alt="Jewelry Image"
@@ -27,120 +106,71 @@ const LoginForm = () => {
         />
       </div>
 
-      {/* Right side with login form */}
-      <div className="flex w-[1200] h-screen justify-center items-center relative">
-        {/* Back to Home Page button */}
-       <BackHomeBtn/>
-        <Card className="w-1/2 border-none shadow-none bg-transparent">
-          <CardBody className="p-6">
-            <div className="text-center mb-6">
-              <h2 className="text-3xl md:text-4xl font-semibold text-amber-700">
-                Welcome Back
-              </h2>
-              <p className="text-gray-500 mt-2">
-                Let us continue assisting you with your journey
-              </p>
-            </div>
-
-            {/* Form */}
-            <form className="space-y-4">
-              <div className="space-y-1">
-                <label className="text-lg text-gray-700" htmlFor="email">
-                  Email or phone number
-                </label>
-                <input
-                  type="text"
-                  id="email"
-                  placeholder="Enter email or phone number"
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
-                  required
-                />
+      <div className="flex w-1/2 h-screen justify-center items-center relative">
+        <BackHomeBtn/>
+        
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleLogin}
+        >
+          <Card className="w-full max-w-md border-none shadow-none bg-transparent">
+            <CardBody className="p-6">
+              <div className="text-center mb-6">
+                <h2 className="text-3xl md:text-4xl font-semibold text-amber-700">
+                  Welcome Back
+                </h2>
+                <p className="text-gray-500 mt-2">
+                  Let us continue assisting you with your journey
+                </p>
               </div>
 
-              <div className="space-y-1">
-                <label className="text-lg text-gray-700" htmlFor="password">
-                  Password
-                </label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    id="password"
-                    placeholder="Enter password"
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 pr-10"
-                    required
+              <Form className="space-y-4">
+                <div className="space-y-1">
+                  <label className="text-lg text-gray-700" htmlFor="username">
+                    Username
+                  </label>
+                  <Field
+                    name="username"
+                    component={MyInput}
+                    placeholder="Enter username"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md"
                   />
-                  <button
-                    type="button"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <FiEyeOff className="w-5 h-5" />
-                    ) : (
-                      <FiEye className="w-5 h-5" />
-                    )}
-                  </button>
                 </div>
-              </div>
 
-              <div className="flex items-center justify-between">
-                <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-4 w-4 text-amber-600 rounded border-gray-300"
-                  />
-                  <span className="ml-2 text-gray-600">Remember me</span>
-                </label>
-                <Link
-                  href="/forgotPass"
-                  className="text-blue-600 hover:text-amber-700 transition-colors"
-                >
-                  Forgot Password?
-                </Link>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-amber-700 text-white py-3 rounded-md font-semibold hover:bg-amber-800 transition duration-300"
-              >
-                Sign In
-              </button>
-
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200"></div>
+                <div className="space-y-1">
+                  <label className="text-lg text-gray-700" htmlFor="password">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <Field
+                      name="password"
+                      component={MyInputPassword}
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Enter password"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md pr-10"
+                    />
+                   
+                  </div>
                 </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">OR</span>
-                </div>
+
+                <Button disabled={isLoading} type='submit' className='bg-gradient-to-tr w-full from-pink-500 to-yellow-500 text-white shadow-lg'>
+                                            {isLoading ? <Spinner color="default" /> : 'Đăng nhập'}
+                                        </Button>
+              </Form>
+
+              <div className="text-center mt-6">
+                <p className="text-gray-500">
+                  Don't have an account?{" "}
+                  <Link href="/signUp" className="text-amber-700 font-medium">
+                    Sign Up
+                  </Link>
+                </p>
               </div>
-
-              <button
-                type="button"
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
-              >
-                <FcGoogle className="w-5 h-5" />
-                Sign In With Google
-              </button>
-            </form>
-
-            {/* Footer */}
-            <div className="text-center mt-6">
-              <p className="text-gray-500">
-                Don't have an account?{" "}
-                <Link
-                  href="/signUp"
-                  className="text-amber-700 hover:text-amber-800 font-medium"
-                >
-                  Sign Up
-                </Link>
-              </p>
-            </div>
-          </CardBody>
-        </Card>
+            </CardBody>
+          </Card>
+        </Formik>
       </div>
     </section>
   );
-};
-
-export default LoginForm;
+}
