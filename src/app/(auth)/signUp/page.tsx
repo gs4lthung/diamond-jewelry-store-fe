@@ -24,6 +24,7 @@ export default function Signup() {
     firstName: '',
     lastName: '',
     email: '',
+    confirmPassword : ''
 };
 const [isShowPassword, setIsShowPassword] = useState(false);
 const validationSchema = Yup.object().shape({
