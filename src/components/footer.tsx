@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white">
+    <footer className="bg-gray-800 text-white">
       <div className="mx-auto max-w-screen-xl px-4 py-8">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-5 text-center md:text-left">
@@ -16,7 +16,7 @@ export default function Footer() {
               {/* Logo */}
               <Image src={imageLogo} alt="Logo" className="w-10 h-10" />
               {/* Company Name */}
-              <span className="text-2xl font-mono font-bold">KIRA JEWELRY</span>
+              <span className="text-2xl font-mono font-bold">NTK DIAMOND</span>
             </div>
             <div className="text-gray-400 text-sm">
               <p>Hotline: 123123123</p>

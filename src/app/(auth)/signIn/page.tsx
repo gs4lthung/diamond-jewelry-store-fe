@@ -38,13 +38,13 @@ export default function Login() {
 
   const validationSchema = Yup.object().shape({
     username: Yup.string()
-        .required('Tên người dùng là bắt buộc')
-        .min(3, 'Tên người dùng phải có ít nhất 3 ký tự')
-        .max(20, 'Tên người dùng không được vượt quá 20 ký tự'),
+        .required('Username is required')
+        .min(3, 'Username must contain 3 characters')
+        .max(20, 'Username cannot exceed 20 characters'),
     password: Yup.string()
-        .required('Mật khẩu là bắt buộc')
-        .min(6, 'Mật khẩu phải có ít nhất 6 ký tự')
-        .max(20, 'Mật khẩu không được vượt quá 20 ký tự'),
+        .required('Password is required')
+        .min(6, 'Password must be at least 6 characters')
+        .max(20, 'Password must not exceed 20 characters'),
   });
 
   const dispatch = useAppDispatch();
@@ -55,7 +55,7 @@ export default function Login() {
     try {
       const { data } = await baseApi.post(`api/v1/auth/signin`, values);
 
-      toast.success("Đăng nhập thành công! Bạn sẽ chuyển đến trang chủ trong giây lát...", {
+      toast.success("Login successful! You will be redirected to the home page shortly...", {
         onClose: () => router.replace('/'),
         autoClose: 1000,
       });
@@ -81,13 +81,13 @@ export default function Login() {
 
       localStorage.setItem("token", data.token);
     } catch (error) {
-      toast.error("Đăng nhập không thành công! Bạn hãy kiểm tra lại tài khoản và mật khẩu của bạn.");
+      toast.error("Login failed! Please check your account and password again.");
       if (error instanceof AxiosError) {
         const errorResponse = error?.response?.data?.error?.message;
         const translatedError = LoginError[errorResponse as keyof typeof LoginError];
-        dispatch(loginFailure(translatedError ?? "Đã có lỗi xảy ra"));
+        dispatch(loginFailure(translatedError ?? "An error occurred."));
       } else {
-        dispatch(loginFailure("Đã có lỗi xảy ra"));
+        dispatch(loginFailure("An error occurred."));
       }
     } finally {
       setIsLoading(false);
@@ -155,7 +155,7 @@ export default function Login() {
                 </div>
 
                 <Button disabled={isLoading} type='submit' className='bg-gradient-to-tr w-full from-pink-500 to-yellow-500 text-white shadow-lg'>
-                                            {isLoading ? <Spinner color="default" /> : 'Đăng nhập'}
+                                            {isLoading ? <Spinner color="default" /> : 'Sign In'}
                                         </Button>
               </Form>
 

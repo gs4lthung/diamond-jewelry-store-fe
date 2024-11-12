@@ -24,7 +24,7 @@ export const HeaderLogo = () => {
             className="inline"
           />
         </NextLink>
-        <p className="text-2xl font-bold text-gray-800">KIRA JEWELRY</p>
+        <p className="text-2xl font-bold text-gray-800">NTK DIAMOND</p>
       </div>
     </NextUINavbar>
   );
