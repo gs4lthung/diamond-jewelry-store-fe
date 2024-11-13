@@ -28,9 +28,8 @@ const MainSection = () => {
           {images.map((image, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
-                index === currentImageIndex ? "opacity-100" : "opacity-0"
-              }`}
+              className={`absolute inset-0 transition-opacity duration-1000 ${index === currentImageIndex ? "opacity-100" : "opacity-0"
+                }`}
             >
               <Image
                 src={image}
@@ -59,9 +58,8 @@ const MainSection = () => {
           {images.map((_, index) => (
             <div
               key={index}
-              className={`w-3 h-3 rounded-full cursor-pointer ${
-                index === currentImageIndex ? "bg-yellow-500" : "bg-gray-400"
-              }`}
+              className={`w-3 h-3 rounded-full cursor-pointer ${index === currentImageIndex ? "bg-yellow-500" : "bg-gray-400"
+                }`}
               onClick={() => setCurrentImageIndex(index)} // Optional: Allow clicking on dots to change images
             />
           ))}

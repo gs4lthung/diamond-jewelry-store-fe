@@ -1,14 +1,11 @@
-// app/pages/dashboard.tsx
-import React from 'react';
-import { Button } from "@nextui-org/button";
-import { ChevronRight } from 'lucide-react';
+'use client'
 
-export default function Dashboard() {
+import AdminContent from "@/components/adminContent"
 
-
-  return (
-    <div >
-      Home
-    </div>
-  );
+export default function Home() {
+    return (
+        <div className="w-full px-4 py-6">
+                <AdminContent />
+        </div>
+    )
 }

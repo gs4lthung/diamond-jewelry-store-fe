@@ -8,17 +8,16 @@ export default function SideBarAdmin() {
         {
             category: "Quick Access",
             items: [
-                { name: "Dashboard", icon: "🏠" },
+                { name: "Type Of DiaMond", icon: "🏠" },
                 { name: "Exchange", icon: "💱" },
                 { name: "My Wallet", icon: "👛" },
-                { name: "Tradeview", icon: "📊" },
             ]
         },
         {
             category: "Service",
             items: [
                 { name: "Transactions", icon: "💳" },
-                { name: "Buy & Sell Coin", icon: "🔄" },
+                { name: "Buy & Sell Diamond", icon: "🔄" },
                 { name: "Deposit Yen", icon: "💴" },
                 { name: "Withdraw Yen", icon: "💵" },
                 { name: "Send Coin", icon: "📤" },
@@ -41,7 +40,7 @@ export default function SideBarAdmin() {
         <div className="w-64 bg-[#1a1f37] text-white h-full">
             {/* Logo */}
             <div className="p-4 border-b border-gray-700">
-                <h1 className="text-xl font-bold">COINSPACE</h1>
+                <h1 className="text-xl font-bold">DIAMOND</h1>
             </div>
 
             {/* Navigation Menu */}

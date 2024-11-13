@@ -30,21 +30,21 @@ export default function Login() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const initialValues: LoginInput = {
-      username: '',
-      password: '',
+    username: '',
+    password: '',
   };
 
   const validationSchema = Yup.object().shape({
     username: Yup.string()
-        .required('Username is required')
-        .min(3, 'Username must contain 3 characters')
-        .max(20, 'Username cannot exceed 20 characters'),
+      .required('Username is required')
+      .min(3, 'Username must contain 3 characters')
+      .max(20, 'Username cannot exceed 20 characters'),
     password: Yup.string()
-        .required('Password is required')
-        .min(6, 'Password must be at least 6 characters')
-        .max(20, 'Password must not exceed 20 characters'),
+      .required('Password is required')
+      .min(6, 'Password must be at least 6 characters')
+      .max(20, 'Password must not exceed 20 characters'),
   });
 
   const dispatch = useAppDispatch();
@@ -107,8 +107,8 @@ export default function Login() {
       </div>
 
       <div className="flex w-1/2 h-screen justify-center items-center relative">
-        <BackHomeBtn/>
-        
+        <BackHomeBtn />
+
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -150,13 +150,13 @@ export default function Login() {
                       placeholder="Enter password"
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md pr-10"
                     />
-                   
+
                   </div>
                 </div>
 
                 <Button disabled={isLoading} type='submit' className='bg-gradient-to-tr w-full from-pink-500 to-yellow-500 text-white shadow-lg'>
-                                            {isLoading ? <Spinner color="default" /> : 'Sign In'}
-                                        </Button>
+                  {isLoading ? <Spinner color="default" /> : 'Sign In'}
+                </Button>
               </Form>
 
               <div className="text-center mt-6">
