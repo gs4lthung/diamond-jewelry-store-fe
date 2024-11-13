@@ -1,16 +1,19 @@
 'use client'
 import { Avatar, Input, Link, Navbar, NavbarContent } from "@nextui-org/react";
 import { IoSearchCircleOutline, IoLogOut } from "react-icons/io5";
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem,  } from "@nextui-org/dropdown";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
 import { FaUserCircle } from "react-icons/fa";
 import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
+
 interface Props {
     children: React.ReactNode;
 }
+
 export default function NavbarAdmin({ children }: Props) {
     const router = useRouter();
     const iconClasses = "text-xl text-default-500 pointer-events-none flex-shrink-0 w-5 h-5";
+
     const handleLogout = async () => {
         console.log('Error')
         await localStorage.clear();
@@ -19,10 +22,11 @@ export default function NavbarAdmin({ children }: Props) {
         Cookies.remove('uid');
         router.replace('/logIn');
     };
+
     return (
         <>
-            <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-                <Navbar
+            <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden bg-gray-100">
+            <Navbar
                     isBordered
                     className="w-full"
                     classNames={{
@@ -30,7 +34,7 @@ export default function NavbarAdmin({ children }: Props) {
                     }}
                 >
                     <NavbarContent className="w-full max-md:hidden">
-
+                        {/* Any content for the left part of the navbar */}
                     </NavbarContent>
                     <NavbarContent
                         justify="end"
@@ -51,12 +55,11 @@ export default function NavbarAdmin({ children }: Props) {
                                 >
                                     Đăng xuất
                                 </DropdownItem>
-
                             </DropdownMenu>
                         </Dropdown>
                     </NavbarContent>
                 </Navbar>
-                <div className="p-4">
+                <div className="p-4 bg-white"> {/* Add bg-white here for the content area */}
                     {children}
                 </div>
             </div>

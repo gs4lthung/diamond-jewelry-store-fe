@@ -1,5 +1,4 @@
 
-import AdminContent from "@/components/adminContent";
 import NavbarAdmin from "@/components/adminHeader";
 import SideBarAdmin from "@/components/adminSideBar";
 import type { Metadata } from "next";
@@ -17,7 +16,7 @@ export default function RootLayout({
 }>) {
     return (
         <>
-            <div className="flex">          
+            <div className="h-screen w-screen flex">          
                 <SideBarAdmin/>                
                 <NavbarAdmin>{children}</NavbarAdmin>  
                             

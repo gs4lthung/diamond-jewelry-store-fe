@@ -1,68 +1,104 @@
-// app/pages/dashboard.tsx
-import React from 'react';
-import { Button } from "@nextui-org/button";
-import { ChevronRight } from 'lucide-react';
+"use client";
+
+import React, { useState } from "react";
+import { FaBars, FaUsers } from "react-icons/fa";
+import { BiHome } from "react-icons/bi";
+import { MdWorkHistory } from "react-icons/md";
+import Cookies from "js-cookie";
+import { Button, Divider, Link } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 export default function SideBarAdmin() {
-    const menuItems = [
-        {
-            category: "Quick Access",
-            items: [
-                { name: "Type Of DiaMond", icon: "🏠" },
-                { name: "Exchange", icon: "💱" },
-                { name: "My Wallet", icon: "👛" },
-            ]
-        },
-        {
-            category: "Service",
-            items: [
-                { name: "Transactions", icon: "💳" },
-                { name: "Buy & Sell Diamond", icon: "🔄" },
-                { name: "Deposit Yen", icon: "💴" },
-                { name: "Withdraw Yen", icon: "💵" },
-                { name: "Send Coin", icon: "📤" },
-                { name: "Receive Coin", icon: "📥" },
-                { name: "Deposit Coin", icon: "🪙" },
-                { name: "Rewards", icon: "🎁" },
-                { name: "Utility Plan", icon: "📋" },
-            ]
-        },
-        {
-            category: "Account",
-            items: [
-                { name: "Notification", icon: "🔔" },
-                { name: "Profile", icon: "⚙️" },
-            ]
-        }
-    ];
+  const router = useRouter();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
-    return (
-        <div className="w-64 bg-[#1a1f37] text-white h-full">
-            {/* Logo */}
-            <div className="p-4 border-b border-gray-700">
-                <h1 className="text-xl font-bold">DIAMOND</h1>
-            </div>
+  const handleLogout = async () => {
+    await localStorage.clear();
+    Cookies.remove("token");
+    router.replace("/signIn");
+  };
 
-            {/* Navigation Menu */}
-            <div className="p-4">
-                {menuItems.map((section, idx) => (
-                    <div key={idx} className="mb-6">
-                        <h2 className="text-sm text-gray-400 mb-2">{section.category}</h2>
-                        {section.items.map((item, itemIdx) => (
-                            <div
-                                key={itemIdx}
-                                className="flex items-center justify-between p-2 mb-1 hover:bg-blue-600 rounded cursor-pointer transition-colors group"
-                            >
-                                <div className="flex items-center">
-                                    <span className="mr-2">{item.icon}</span>
-                                    <span className="text-sm">{item.name}</span>
-                                </div>
-                                <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </div>
-                        ))}
-                    </div>
-                ))}
-            </div>
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  return (
+    <div
+      className={`flex flex-col h-screen bg-gray-800 text-white transition-all duration-300 ${
+        isCollapsed ? "w-20" : "w-64"
+      }`}
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-1">
+        {!isCollapsed && <h1 className="text-lg font-bold">ADMIN</h1>}
+        <Button
+          isIconOnly
+          onClick={toggleSidebar}
+          className="bg-transparent text-white hover:bg-gray-700"
+        >
+          <FaBars />
+        </Button>
+      </div>
+
+      {/* Menu Items */}
+      <div className="flex-1 flex flex-col">
+        <div className="flex flex-col gap-4 mt-4">
+          <Divider className="bg-gray-700" />
+          <MenuItem
+            href="/admin"
+            icon={<BiHome className="w-6 h-6" />}
+            text="Trang chủ"
+            isCollapsed={isCollapsed}
+          />
+          <Divider className="bg-gray-700" />
+          <MenuItem
+            href="/admin/manageAccount"
+            icon={<MdWorkHistory className="w-6 h-6" />}
+            text="Tài khoản Quản lí"
+            isCollapsed={isCollapsed}
+          />
+          <Divider className="bg-gray-700" />
+          <MenuItem
+            href="/admin/manageAccCus"
+            icon={<FaUsers className="w-6 h-6" />}
+            text="Tài khoản Khách hàng"
+            isCollapsed={isCollapsed}
+          />
+          <Divider className="bg-gray-700" />
         </div>
-    );
+      </div>
+
+      {/* Logout Button */}
+      <div className="flex items-center justify-center py-4">
+        {!isCollapsed ? (
+          <Button
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-500 text-white w-full"
+          >
+            Đăng xuất
+          </Button>
+        ) : (
+          <Button
+            isIconOnly
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-500 text-white"
+          >
+            🚪
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Component for Menu Item
+function MenuItem({ href, icon, text, isCollapsed }: any) {
+  return (
+    <div className="flex items-center px-4 py-3 cursor-pointer hover:bg-gray-700 rounded-lg">
+      <Link href={href} className="flex items-center gap-4 w-full">
+        {icon}
+        {!isCollapsed && <span className="text-lg">{text}</span>}
+      </Link>
+    </div>
+  );
 }

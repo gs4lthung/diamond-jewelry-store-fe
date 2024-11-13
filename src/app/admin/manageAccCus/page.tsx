@@ -1,7 +1,9 @@
+"use client"
+
 import React from "react";
 import { Card, CardBody } from "@nextui-org/react";
 
-export default function AdminContent() {
+export default function ManageAccCus() {
   const customers = [
     {
       name: "Jane Cooper",
@@ -70,7 +72,7 @@ export default function AdminContent() {
   ];
 
   return (
-    <div className="p-6  min-h-screen">
+    <div className="p-6  min-h-screen bg-white">
       <Card>
         <CardBody>
           {/* Header */}
@@ -135,5 +137,54 @@ export default function AdminContent() {
         </CardBody>
       </Card>
     </div>
+//     <div className="lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
+//     <h3 className="text-xl font-semibold">Danh sách tài khoản khách hàng</h3>
+//     {/* <div className="mb-5 mt-5 flex justify-between items-center">
+//         <QuantityCustomer />
+//     </div> */}
+//     <div className="max-w-[95rem] mx-auto w-full">
+//         {loading ? (
+//             <div className="flex justify-center items-center h-40">
+//                 <Spinner />
+//             </div>
+//         ) : (
+//             customers.length === 0 ? (
+//                 <div>Không có khách hàng nào</div>
+//             ) : (
+//                 <>
+//                     <div className="p-4 mb-4 bg-gray-100 rounded-md">
+//                         <span className="font-semibold">Tổng số tài khoản: </span>
+//                         <span>{total.totalAccount}</span>
+//                     </div>
+//                     <Table aria-label="Example static collection table">
+//                         <TableHeader>
+//                             <TableColumn>Tên Khách hàng</TableColumn>
+//                             <TableColumn>Email</TableColumn>
+//                             <TableColumn>Số điện thoại</TableColumn>
+
+//                             <TableColumn>Hành động</TableColumn>
+//                         </TableHeader>
+//                         <TableBody>
+//                             {customers.map((customer) => (
+//                                 <TableRow key={customer.id}>
+//                                     <TableCell>{customer.username}</TableCell>
+//                                     <TableCell>{customer.email}</TableCell>
+//                                     <TableCell>{customer.phone}</TableCell>
+
+//                                     <TableCell>
+//                                         <div className="flex items-center gap-4">
+//                                             <AccountCusDetail params={customer.id} />
+//                                             <DeleteCus params={customer.id} refetchCustomers={fetchCustomers} />
+//                                         </div>
+//                                     </TableCell>
+//                                 </TableRow>
+//                             ))}
+//                         </TableBody>
+//                     </Table>
+//                 </>
+//             )
+//         )}
+//     </div>
+// </div>
   );
 }
