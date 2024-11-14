@@ -40,7 +40,7 @@ export const HeaderAuth = () => {
                 {isLoggedIn ? (
                     <>
                         {/* <NotificationsDropdown /> */}
-                        <NavbarItem>
+                        {/* <NavbarItem>
 
                             <Dropdown>
                                 <DropdownTrigger>
@@ -103,7 +103,7 @@ export const HeaderAuth = () => {
 
                                 </DropdownMenu>
                             </Dropdown>
-                        </NavbarItem>
+                        </NavbarItem> */}
 
                     </>
                 ) : (
