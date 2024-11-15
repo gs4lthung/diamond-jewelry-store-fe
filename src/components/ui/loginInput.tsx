@@ -25,7 +25,7 @@ function MyInput({ field, placeholder, error, helperText }: MyInputProps) {
                 value={field.value || ""}
                 onChange={field.onChange}
                 autoComplete="off"
-                placeholder="Nhập  tên đăng nhập" required
+                placeholder="Enter Username" required
 
             />
             <ErrorMessage
@@ -65,7 +65,7 @@ function MyInputPhoneNumber({ field, placeholder, error, helperText }: MyInputPr
                 value={field.value || ""}
                 onChange={field.onChange}
                 autoComplete="off"
-                placeholder="Số điện thoại" required
+                placeholder="Phone" required
 
             />
             <ErrorMessage
@@ -134,7 +134,7 @@ function MyInputConfirmPassword({
                 type={showPassword ? "text" : "password"}
                 value={field.value || ""}
                 onChange={field.onChange}
-                placeholder="Xác nhận mật khẩu"
+                placeholder="Confirm Password"
                 autoComplete="off"
                 required
 
@@ -171,7 +171,7 @@ function MyInputPassword({
                 type={showPassword ? "text" : "password"}
                 value={field.value || ""}
                 onChange={field.onChange}
-                placeholder="Nhập mật khẩu    "
+                placeholder="Enter Password"
                 autoComplete="off"
                 required
 

@@ -32,7 +32,7 @@ axiosInstance.interceptors.response.use(
     toast.error(message);
 
     if (status === 401) {
-      Router.push("/login");
+      Router.push("/signIn");
     }
 
     return Promise.reject(error);
