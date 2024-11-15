@@ -32,7 +32,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
   const initialValues: LoginInput = {
-    username: '',
+    user_name: '',
     password: '',
   };
 
@@ -70,7 +70,7 @@ export default function Login() {
           router.replace(`/`);
           break;
         case ROLE.role2:
-          router.replace(`/shopOwner`);
+          router.replace(`/manager`);
           break;
         case ROLE.role3:
           router.replace(`/admin`);
@@ -131,7 +131,7 @@ export default function Login() {
                     Username
                   </label>
                   <Field
-                    name="username"
+                    name="user_name"
                     component={MyInput}
                     placeholder="Enter username"
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md"
@@ -153,12 +153,37 @@ export default function Login() {
 
                   </div>
                 </div>
-
+                <div className="flex items-center">
+                  <Field
+                    type="checkbox"
+                    name="rememberMe"
+                    id="rememberMe"
+                    className="h-4 w-4 text-amber-700 focus:ring-amber-700 border-gray-300 rounded"
+                  />
+                  <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-700">
+                    Remember Me
+                  </label>
+                </div>
                 <Button disabled={isLoading} type='submit' className='bg-gradient-to-tr w-full from-pink-500 to-yellow-500 text-white shadow-lg'>
                   {isLoading ? <Spinner color="default" /> : 'Sign In'}
                 </Button>
               </Form>
+              <div className="relative mt-5">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-gray-200"></div>
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                      <span className="px-2 bg-gray-50 text-gray-500">OR</span>
+                    </div>
+                  </div>
 
+                  <button
+                    type="button"
+                    className="w-full flex text-black items-center justify-center gap-2 py-3 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                  >
+                    <FcGoogle className="w-5 h-5" />
+                    Sign In With Google
+                  </button>
               <div className="text-center mt-6">
                 <p className="text-gray-500">
                   Don't have an account?{" "}
@@ -167,6 +192,8 @@ export default function Login() {
                   </Link>
                 </p>
               </div>
+              
+             
             </CardBody>
           </Card>
         </Formik>
