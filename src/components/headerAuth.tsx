@@ -12,20 +12,26 @@ import imageLogo from "../../public/assets/img/download.png";
 import { siteConfig } from "@/config/site";
 import Image from "next/image";
 import { ThemeSwitch } from "./theme-switch";
-import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
+import {
+  Avatar,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 export const HeaderAuth = () => {
-
-  const iconClasses = "text-xl text-default-500 pointer-events-none flex-shrink-0 w-5 h-5";
-  const router = useRouter()
+  const iconClasses =
+    "text-xl text-default-500 pointer-events-none flex-shrink-0 w-5 h-5";
+  const router = useRouter();
   const handleLogout = async () => {
     await localStorage.clear();
-    Cookies.remove('token');
-    router.replace('/signIn');
-};
+    Cookies.remove("token");
+    router.replace("/signIn");
+  };
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <NextUINavbar
@@ -113,13 +119,6 @@ export const HeaderAuth = () => {
             <ThemeSwitch />
           </NavbarItem>
         </NavbarContent>
-                    </>
-
-                )}
-
-
-
-            </NavbarContent>
       </div>
 
       {/* Mobile Menu */}
@@ -129,7 +128,9 @@ export const HeaderAuth = () => {
             <NavbarMenuItem key={`${item.label}-${index}`}>
               <Link
                 className={clsx(
-                  item.label === "Jewelry" ? "text-orange-500" : "text-gray-700",
+                  item.label === "Jewelry"
+                    ? "text-orange-500"
+                    : "text-gray-700",
                   "hover:text-orange-600 transition-colors"
                 )}
                 href={item.href}

@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import BackHomeBtn from "@/components/button/backHomeBtn";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { SignupInput } from "@/models/authentication";
-import { useAuth } from "@/hooks/useApi";
+// import { useAuth } from "@/hooks/useApi";
 import { toast } from "react-toastify";
 import { Field, Form, Formik } from "formik";
 import { MyInput, MyInputEmail, MyInputFirstName, MyInputLastName } from "@/components/ui/loginInput";
@@ -47,22 +47,22 @@ export default function Signup() {
     email: Yup.string()
       .email('Địa chỉ email không hợp lệ')
       .required('Email là bắt buộc'),
-  });
-  const { handleSignup } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
-  const handleSubmit = async (values: SignupInput) => {
+});
+// const { handleSignup } = useAuth();
+const [isLoading, setIsLoading] = useState(false);
+const handleSubmit = async (values: SignupInput) => {
 
     try {
-      await handleSignup(values);
-      setIsLoading(true); // Start loading
-      toast.success("Đăng ký thành công! Bạn sẽ chuyển đến trang đăng nhập trong giây lát...", {
-        onClose: () => {
-          setTimeout(() => {
-            router.replace('/signIn');
-          }, 2000);
-        },
-        autoClose: 1000,
-      });
+        // await handleSignup(values);
+        setIsLoading(true); // Start loading
+        toast.success("Đăng ký thành công! Bạn sẽ chuyển đến trang đăng nhập trong giây lát...", {
+            onClose: () => {
+                setTimeout(() => {
+                    router.replace('/signIn');
+                }, 2000);
+            },
+            autoClose: 1000,
+        });
     } catch (error) {
       toast.error("Đăng ký không thành công. Vui lòng thử lại.");
     } finally {
