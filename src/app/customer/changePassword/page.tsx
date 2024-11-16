@@ -2,7 +2,6 @@
 // import { fetchUserInforPagination, patchPasswordProfile, patchUpdateProfile } from '@/lib/redux/slice/userSlice';
 // import { useAppDispatch } from '@/lib/redux/store';
 import { UserInfor, passwordInfor, updatePasswordInput, updateProfileInput } from '@/models/userModels';
-import getAccessAndRefreshCookie from '@/utilities/authUtils/getCookieForValidation';
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Divider, Input, Tab, Tabs } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import { BiEdit } from 'react-icons/bi';
@@ -21,20 +20,6 @@ export default function Profile() {
     // }, [dispatch]);
 
     const [userId, setUserId] = useState<string>('');
-
-    useEffect(() => {
-        const fetchUid = async () => {
-            try {
-                const { uid } = await getAccessAndRefreshCookie();
-                if (uid) {
-                    setUserId(uid);
-                }
-            } catch (error) {
-                console.error('Error fetching UID:', error);
-            }
-        };
-        fetchUid();
-    }, [userId]);
 
     const [profileData, setProfileData] = useState<updatePasswordInput>({
         id: userId,

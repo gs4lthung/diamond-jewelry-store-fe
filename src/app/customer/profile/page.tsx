@@ -2,7 +2,6 @@
 // import { fetchUserInforPagination, patchUpdateProfile } from '@/lib/redux/slice/userSlice';
 // import { useAppDispatch } from '@/lib/redux/store';
 import { UserInfor, updateProfileInput } from '@/models/userModels';
-import getAccessAndRefreshCookie from '@/utilities/authUtils/getCookieForValidation';
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Divider, Input } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import { BiEdit } from 'react-icons/bi';
@@ -45,20 +44,6 @@ const Profile: React.FC = () => {
     const [items, setItems] = useState<UserInfor | null>(null);
     const [isEditing, setIsEditing] = useState(false);
     const [serverError, setServerError] = useState<string | null>(null);
-
-    useEffect(() => {
-        const fetchUid = async () => {
-            try {
-                const { uid } = await getAccessAndRefreshCookie();
-                if (uid) {
-                    setUserId(uid);
-                }
-            } catch (error) {
-                console.error('Error fetching UID:', error);
-            }
-        };
-        fetchUid();
-    }, []);
 
     // useEffect(() => {
     //     const fetchUserInformation = async () => {
