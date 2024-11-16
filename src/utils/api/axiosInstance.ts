@@ -55,6 +55,7 @@ axiosInstance.interceptors.response.use(
       // Redirect
       if (typeof window !== "undefined") {
         window.location.href = "/";
+        toast.error(message);
       }
     } else {
       // window.location.href = "/signin";

@@ -14,16 +14,6 @@ import { CustomAxiosRequestConfig } from "@/config/axios.config";
 import { Toaster, toast } from "react-hot-toast";
 
 export default function Home() {
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log("fetching data");
-      const response = await axiosInstance
-        .get("/videos", {
-          requiresAuth: true,
-        } as CustomAxiosRequestConfig)
-    };
-    fetchData();
-  }, []);
   return (
     <div className="bg-gray-100">
       <div className="bg-gray-100">
