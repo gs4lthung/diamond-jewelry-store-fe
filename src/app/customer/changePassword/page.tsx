@@ -6,8 +6,6 @@ import getAccessAndRefreshCookie from '@/utilities/authUtils/getCookieForValidat
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Divider, Input, Tab, Tabs } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import { BiEdit } from 'react-icons/bi';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function Profile() {
     const dispatch = useAppDispatch();
@@ -115,14 +113,15 @@ export default function Profile() {
         try {
             if (userId) {
                 await dispatch(patchPasswordProfile({ profileData })).unwrap();
-                toast.success("Cập nhật dịch vụ thành công!", {
-                    autoClose: 1500,
-                });
+                // toast.success("Cập nhật dịch vụ thành công!", {
+                //     autoClose: 1500,
+                // });
+                        // ko sử dụng react-toasify vì nó không hoạt động với nextjs, đổi qua dùng react-hot-toast
                 setIsEditing(false);
             }
         } catch (error) {
             console.error('Lỗi  cập nhật:', error);
-            toast.error("Đã xảy ra lỗi khi cập nhật dịch vụ. Vui lòng thử lại sau!");
+            // toast.error("Đã xảy ra lỗi khi cập nhật dịch vụ. Vui lòng thử lại sau!");
         }
     };
 
@@ -225,7 +224,6 @@ export default function Profile() {
                     </Tabs>
                 </div>
             </div>
-            <ToastContainer />
         </div>
     )
 }

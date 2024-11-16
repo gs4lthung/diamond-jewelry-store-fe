@@ -12,7 +12,6 @@ import BackHomeBtn from "@/components/button/backHomeBtn";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { SignupInput } from "@/models/authentication";
 // import { useAuth } from "@/hooks/useApi";
-import { toast } from "react-toastify";
 import { Field, Form, Formik } from "formik";
 import { MyInput, MyInputEmail, MyInputFirstName, MyInputLastName } from "@/components/ui/loginInput";
 export default function Signup() {
@@ -55,16 +54,18 @@ const handleSubmit = async (values: SignupInput) => {
     try {
         // await handleSignup(values);
         setIsLoading(true); // Start loading
-        toast.success("Đăng ký thành công! Bạn sẽ chuyển đến trang đăng nhập trong giây lát...", {
-            onClose: () => {
-                setTimeout(() => {
-                    router.replace('/signIn');
-                }, 2000);
-            },
-            autoClose: 1000,
-        });
+        // toast.success("Đăng ký thành công! Bạn sẽ chuyển đến trang đăng nhập trong giây lát...", {
+        //     onClose: () => {
+        //         setTimeout(() => {
+        //             router.replace('/signIn');
+        //         }, 2000);
+        //     },
+        //     autoClose: 1000,
+        // });
+
+        // ko sử dụng react-toasify vì nó không hoạt động với nextjs, đổi qua dùng react-hot-toast
     } catch (error) {
-      toast.error("Đăng ký không thành công. Vui lòng thử lại.");
+      // toast.error("Đăng ký không thành công. Vui lòng thử lại.");
     } finally {
       setIsLoading(false);
 
