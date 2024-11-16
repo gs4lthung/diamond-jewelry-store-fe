@@ -9,13 +9,13 @@ import {
   useDisclosure,
   Tooltip,
 } from "@nextui-org/react";
-import { useAppDispatch } from "@/lib/redux/store";
+// import { useAppDispatch } from "@/lib/redux/store";
 import { MdDelete } from "react-icons/md";
 // import { deleteCus } from '@/lib/redux/slice/adminSlice';
 
 export default function DeleteCus({ params }: { params: string }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   // const handleDelete = async () => {
   //     try {

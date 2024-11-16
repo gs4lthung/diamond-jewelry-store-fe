@@ -1,6 +1,6 @@
 "use client"
-import { fetchUserInforPagination, patchPasswordProfile, patchUpdateProfile } from '@/lib/redux/slice/userSlice';
-import { useAppDispatch } from '@/lib/redux/store';
+// import { fetchUserInforPagination, patchPasswordProfile, patchUpdateProfile } from '@/lib/redux/slice/userSlice';
+// import { useAppDispatch } from '@/lib/redux/store';
 import { UserInfor, passwordInfor, updatePasswordInput, updateProfileInput } from '@/models/userModels';
 import getAccessAndRefreshCookie from '@/utilities/authUtils/getCookieForValidation';
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Divider, Input, Tab, Tabs } from '@nextui-org/react';
@@ -8,17 +8,17 @@ import React, { useEffect, useState } from 'react';
 import { BiEdit } from 'react-icons/bi';
 
 export default function Profile() {
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
     const [validationErrors, setValidationErrors] = useState<string[]>([]);
     const [items, setItems] = useState<passwordInfor>();
 
-    useEffect(() => {
-        const allService = async () => {
-            const response = await dispatch(fetchUserInforPagination());
-            setItems(response.payload);
-        }
-        allService();
-    }, [dispatch]);
+    // useEffect(() => {
+    //     const allService = async () => {
+    //         // const response = await dispatch(fetchUserInforPagination());
+    //         setItems(response.payload);
+    //     }
+    //     allService();
+    // }, [dispatch]);
 
     const [userId, setUserId] = useState<string>('');
 
@@ -112,7 +112,7 @@ export default function Profile() {
         }
         try {
             if (userId) {
-                await dispatch(patchPasswordProfile({ profileData })).unwrap();
+                // await dispatch(patchPasswordProfile({ profileData })).unwrap();
                 // toast.success("Cập nhật dịch vụ thành công!", {
                 //     autoClose: 1500,
                 // });

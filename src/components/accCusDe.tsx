@@ -13,14 +13,14 @@ import {
 
 import { FaEye } from 'react-icons/fa';
 
-import { useAppDispatch } from '@/lib/redux/store';
+// import { useAppDispatch } from '@/lib/redux/store';
 import { CusInfor } from '@/models/adminModel';
 // import { fetchShopInfor } from '@/lib/redux/slice/adminSlice';
 
 export default function AccountCusDetail({ params }: { params: string }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [customer, setCustomer] = useState<CusInfor | null>(null);
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
 
     // const fetchCustomerDetails = async () => {
     //     try {
