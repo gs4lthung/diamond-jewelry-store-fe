@@ -11,10 +11,10 @@ const getAuthData = () => {
   return { userId, token };
 };
 
-const decodeToken = (token: string) => {
+const setAuthData = (token: string) => {
   const decodedToken = jwtDecode(token) as jwtPayload;
   Cookies.set("token", token, { expires: 1 });
   Cookies.set("userId", decodedToken.userId, { expires: 1 });
 };
 
-export default { getAuthData, decodeToken };
+export default { getAuthData, setAuthData };
