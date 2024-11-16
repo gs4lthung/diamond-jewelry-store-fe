@@ -2,7 +2,7 @@
 
 import AccountCusDetail from "@/components/accCusDe";
 import DeleteCus from "@/components/deleteAccCus";
-import { fetchAllCusPagination } from "@/lib/redux/slice/adminSlice";
+// import { fetchAllCusPagination } from "@/lib/redux/slice/adminSlice";
 import { useAppDispatch } from "@/lib/redux/store";
 import {
   Spinner,

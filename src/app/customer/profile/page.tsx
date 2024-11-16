@@ -1,6 +1,6 @@
 "use client"
-import { fetchUserInforPagination, patchUpdateProfile } from '@/lib/redux/slice/userSlice';
-import { useAppDispatch } from '@/lib/redux/store';
+// import { fetchUserInforPagination, patchUpdateProfile } from '@/lib/redux/slice/userSlice';
+// import { useAppDispatch } from '@/lib/redux/store';
 import { UserInfor, updateProfileInput } from '@/models/userModels';
 import getAccessAndRefreshCookie from '@/utilities/authUtils/getCookieForValidation';
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Divider, Input } from '@nextui-org/react';
@@ -40,7 +40,7 @@ const Profile: React.FC = () => {
     });
     const [previewImage, setPreviewImage] = useState("");
 
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
     const [userId, setUserId] = useState<string>('');
     const [items, setItems] = useState<UserInfor | null>(null);
     const [isEditing, setIsEditing] = useState(false);
@@ -60,21 +60,21 @@ const Profile: React.FC = () => {
         fetchUid();
     }, []);
 
-    useEffect(() => {
-        const fetchUserInformation = async () => {
-            if (userId) {
-                try {
-                    const response = await dispatch(fetchUserInforPagination());
-                    const userInfo = response.payload;
-                    setItems(userInfo);
-                } catch (error) {
-                    console.error('Error fetching user information:', error);
-                }
-            }
-        };
+    // useEffect(() => {
+    //     const fetchUserInformation = async () => {
+    //         if (userId) {
+    //             try {
+    //                 const response = await dispatch(fetchUserInforPagination());
+    //                 const userInfo = response.payload;
+    //                 setItems(userInfo);
+    //             } catch (error) {
+    //                 console.error('Error fetching user information:', error);
+    //             }
+    //         }
+    //     };
 
-        fetchUserInformation();
-    }, [dispatch, userId]);
+    //     fetchUserInformation();
+    // }, [dispatch, userId]);
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -99,7 +99,7 @@ const Profile: React.FC = () => {
                     profileImageUrl: values.profileImageUrl
                 };
 
-                await dispatch(patchUpdateProfile({ profileData: updateData })).unwrap();
+                // await dispatch(patchUpdateProfile({ profileData: updateData })).unwrap();
                 // toast.success("Cập nhật thông tin thành công!", {
                 //     autoClose: 1500,
                 // });
