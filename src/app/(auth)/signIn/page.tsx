@@ -1,25 +1,25 @@
 "use client";
-import { JwtPayload, jwtDecode } from 'jwt-decode';
-import { useState } from "react";
+import { JwtPayload, jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
 import Image from "next/legacy/image";
 import loginImg from "../../../../public/assets/img/SignIn.jpg";
 import { Button, Card, CardBody, Link, Spinner } from "@nextui-org/react";
 import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useRouter } from "next/navigation";
-import * as Yup from 'yup';
-import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
+import * as Yup from "yup";
+import axios, { AxiosError } from "axios";
 import BackHomeBtn from "@/components/button/backHomeBtn";
-import { loginFailure, loginStart } from '@/lib/redux/slice/authSlice';
-import { LoginError } from '@/utilities/authUtils/loginValidation';
-import { useAppDispatch } from '@/lib/redux/store';
-import { LoginInput } from '@/models/authentication';
-import baseApi from '@/utilities/baseApi';
-import { ROLE } from '@/utilities/roleUtils/role';
-import Cookies from 'js-cookie';
-import { Field, Form, Formik } from 'formik';
-import { MyInput, MyInputPassword } from '@/components/ui/loginInput';
+// import { loginFailure, loginStart } from '@/lib/redux/slice/authSlice';
+import { LoginError } from "@/utilities/authUtils/loginValidation";
+// import { useAppDispatch } from '@/lib/redux/store';
+import { LoginInput } from "@/models/authentication";
+import { ROLE } from "@/utilities/roleUtils/role";
+import Cookies from "js-cookie";
+import { Field, Form, Formik } from "formik";
+import { MyInput, MyInputPassword } from "@/components/ui/loginInput";
+import axiosInstance from "@/utils/api/axiosInstance";
+import { CustomAxiosRequestConfig } from "@/config/axios.config";
 
 interface roleJwt extends JwtPayload {
   role: string;
@@ -30,64 +30,61 @@ export default function Login() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const initialValues: LoginInput = {
-      username: '',
-      password: '',
+    username: "",
+    password: "",
   };
 
   const validationSchema = Yup.object().shape({
     username: Yup.string()
-        .required('Username is required')
-        .min(3, 'Username must contain 3 characters')
-        .max(20, 'Username cannot exceed 20 characters'),
+      .required("Username is required")
+      .min(3, "Username must contain 3 characters")
+      .max(20, "Username cannot exceed 20 characters"),
     password: Yup.string()
-        .required('Password is required')
-        .min(6, 'Password must be at least 6 characters')
-        .max(20, 'Password must not exceed 20 characters'),
+      .required("Password is required")
+      .min(6, "Password must be at least 6 characters")
+      .max(20, "Password must not exceed 20 characters"),
   });
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const handleLogin = async (values: LoginInput) => {
     setIsLoading(true);
-    dispatch(loginStart());
+    // dispatch(loginStart());
     try {
-      const { data } = await baseApi.post(`api/v1/auth/signin`, values);
+      console.log("values", values);
+      const { data } = await axiosInstance.post(`/auth/login`, values);
 
-      toast.success("Login successful! You will be redirected to the home page shortly...", {
-        onClose: () => router.replace('/'),
-        autoClose: 1000,
-      });
 
-      const decodedToken = jwtDecode(data.token) as roleJwt;
-      Cookies.set('token', data.token, { expires: 1 });
-      Cookies.set('role', decodedToken.role, { expires: 1 });
-      Cookies.set('userId', decodedToken.userId, { expires: 1 });
+      // const decodedToken = jwtDecode(data.token) as roleJwt;
+      // Cookies.set('token', data.token, { expires: 1 });
+      // Cookies.set('role', decodedToken.role, { expires: 1 });
+      // Cookies.set('userId', decodedToken.userId, { expires: 1 });
 
-      switch (decodedToken.role) {
-        case ROLE.role1:
-          router.replace(`/`);
-          break;
-        case ROLE.role2:
-          router.replace(`/shopOwner`);
-          break;
-        case ROLE.role3:
-          router.replace(`/admin`);
-          break;
-        default:
-          break;
-      }
+      // switch (decodedToken.role) {
+      //   case ROLE.role1:
+      //     router.replace(`/`);
+      //     break;
+      //   case ROLE.role2:
+      //     router.replace(`/shopOwner`);
+      //     break;
+      //   case ROLE.role3:
+      //     router.replace(`/admin`);
+      //     break;
+      //   default:
+      //     break;
+      // }
 
-      localStorage.setItem("token", data.token);
+      // localStorage.setItem("token", data.token);
     } catch (error) {
-      toast.error("Login failed! Please check your account and password again.");
       if (error instanceof AxiosError) {
         const errorResponse = error?.response?.data?.error?.message;
-        const translatedError = LoginError[errorResponse as keyof typeof LoginError];
-        dispatch(loginFailure(translatedError ?? "An error occurred."));
+        const translatedError =
+          LoginError[errorResponse as keyof typeof LoginError];
+        // dispatch(loginFailure(translatedError ?? "An error occurred."));
       } else {
-        dispatch(loginFailure("An error occurred."));
+        // dispatch(loginFailure("An error occurred."));
       }
     } finally {
       setIsLoading(false);
@@ -107,8 +104,8 @@ export default function Login() {
       </div>
 
       <div className="flex w-1/2 h-screen justify-center items-center relative">
-        <BackHomeBtn/>
-        
+        <BackHomeBtn />
+
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -150,13 +147,16 @@ export default function Login() {
                       placeholder="Enter password"
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md pr-10"
                     />
-                   
                   </div>
                 </div>
 
-                <Button disabled={isLoading} type='submit' className='bg-gradient-to-tr w-full from-pink-500 to-yellow-500 text-white shadow-lg'>
-                                            {isLoading ? <Spinner color="default" /> : 'Sign In'}
-                                        </Button>
+                <Button
+                  disabled={isLoading}
+                  type="submit"
+                  className="bg-gradient-to-tr w-full from-pink-500 to-yellow-500 text-white shadow-lg"
+                >
+                  {isLoading ? <Spinner color="default" /> : "Sign In"}
+                </Button>
               </Form>
 
               <div className="text-center mt-6">

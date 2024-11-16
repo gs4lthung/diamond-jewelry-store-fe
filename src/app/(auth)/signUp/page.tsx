@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import BackHomeBtn from "@/components/button/backHomeBtn";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { SignupInput } from "@/models/authentication";
-import { useAuth } from "@/hooks/useApi";
+// import { useAuth } from "@/hooks/useApi";
 import { toast } from "react-toastify";
 import { Field, Form, Formik } from "formik";
 import { MyInput, MyInputEmail, MyInputFirstName, MyInputLastName } from "@/components/ui/loginInput";
@@ -48,12 +48,12 @@ const validationSchema = Yup.object().shape({
       .email('Địa chỉ email không hợp lệ')
       .required('Email là bắt buộc'),
 });
-const { handleSignup } = useAuth();
+// const { handleSignup } = useAuth();
 const [isLoading, setIsLoading] = useState(false);
 const handleSubmit = async (values: SignupInput) => {
 
     try {
-        await handleSignup(values);
+        // await handleSignup(values);
         setIsLoading(true); // Start loading
         toast.success("Đăng ký thành công! Bạn sẽ chuyển đến trang đăng nhập trong giây lát...", {
             onClose: () => {

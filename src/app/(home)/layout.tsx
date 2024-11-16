@@ -1,12 +1,11 @@
-
-"use client"
+"use client";
 
 import Footer from "@/components/footer";
 import { HeaderAuth } from "@/components/headerAuth";
 import { HeaderLogo } from "@/components/headerlogo";
 import { Navbar } from "@/components/navbar";
 import React, { useEffect, useState } from "react";
-
+import { Toaster } from "react-hot-toast";
 
 export default function HomeLayout({
   children,
@@ -44,6 +43,7 @@ export default function HomeLayout({
       </div>
       <main className="flex-grow w-full mt-[120px]">{children}</main>
       <Footer />
+      <Toaster />
     </div>
   );
 }
