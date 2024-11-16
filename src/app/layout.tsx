@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: {
@@ -39,6 +40,7 @@ export default function RootLayout({
       >
         <Providers>
           <main>{children}</main>
+          <Toaster />
         </Providers>
       </body>
     </html>
