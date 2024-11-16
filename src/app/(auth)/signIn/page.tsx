@@ -18,10 +18,8 @@ import * as Yup from "yup";
 import axios, { AxiosError } from "axios";
 import BackHomeBtn from "@/components/button/backHomeBtn";
 // import { loginFailure, loginStart } from '@/lib/redux/slice/authSlice';
-import { LoginError } from "@/utilities/authUtils/loginValidation";
 // import { useAppDispatch } from '@/lib/redux/store';
 import { LoginInput } from "@/models/authentication";
-import { ROLE } from "@/utilities/roleUtils/role";
 import Cookies from "js-cookie";
 import { Field, Form, Formik } from "formik";
 import { MyInput, MyInputPassword } from "@/components/ui/loginInput";
@@ -31,7 +29,8 @@ import { loginValidationShema } from "@/utils/validationSchema";
 import ErrorMsg from "@/components/errorMsg";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/redux/store";
-
+import cookieAuth from "@/utils/auth/cookie.auth";
+import { Role } from "@/utils/enums";
 interface roleJwt extends JwtPayload {
   role: string;
   userId: string;
@@ -55,39 +54,26 @@ export default function Login() {
     // dispatch(loginStart());
     try {
       console.log("values", values);
-      const response = await axiosInstance.post(`/auth/login`, values);
+      const response = await axiosInstance.post(`/auth/login`, values, {
+        requiresAuth: true,
+      } as CustomAxiosRequestConfig);
       console.log("response", response);
 
-      // const decodedToken = jwtDecode(data.token) as roleJwt;
-      // Cookies.set('token', data.token, { expires: 1 });
-      // Cookies.set('role', decodedToken.role, { expires: 1 });
-      // Cookies.set('userId', decodedToken.userId, { expires: 1 });
+      cookieAuth.setAuthData(response.data.token);
 
-      // switch (decodedToken.role) {
-      //   case ROLE.role1:
-      //     router.replace(`/`);
-      //     break;
-      //   case ROLE.role2:
-      //     router.replace(`/shopOwner`);
-      //     break;
-      //   case ROLE.role3:
-      //     router.replace(`/admin`);
-      //     break;
-      //   default:
-      //     break;
-      // }
+      const { token, userId, role } = cookieAuth.getAuthData();
 
-      // localStorage.setItem("token", data.token);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        const errorResponse = error?.response?.data?.error?.message;
-        const translatedError =
-          LoginError[errorResponse as keyof typeof LoginError];
-        // dispatch(loginFailure(translatedError ?? "An error occurred."));
-      } else {
-        // dispatch(loginFailure("An error occurred."));
+      switch (role) {
+        case Role.ADMIN:
+          router.replace(`/admin`);
+          break;
+        case Role.CUSTOMER:
+          router.replace(`/`);
+          break;
+        default:
+          break;
       }
-    }
+    } catch (error) {}
   };
 
   return (
@@ -155,7 +141,7 @@ export default function Login() {
                     <div className="relative">
                       <Input
                         name="password"
-                        type="text"
+                        type="password"
                         placeholder="Enter password"
                         onChange={handleChange}
                         value={values.password}
@@ -166,12 +152,7 @@ export default function Login() {
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <Field
-                      type="checkbox"
-                      name="rememberMe"
-                      id="rememberMe"
-                      className="h-4 w-4 text-amber-700 focus:ring-amber-700 border-gray-300 rounded"
-                    />
+                    <Input type="checkbox" name="rememberMe" className="w-10" />
                     <label
                       htmlFor="rememberMe"
                       className="ml-2 block text-sm text-gray-700"
@@ -179,7 +160,10 @@ export default function Login() {
                       Remember Me
                     </label>
                   </div>
-                  {error && <ErrorMsg message={error} color="red" />}
+                  <div className="flex items-center justify-between">
+                    {error && <ErrorMsg message={error} color="red" />}
+                    <div style={{fontSize:"14px"}}>Forgot password</div>
+                  </div>
                   <Button
                     isLoading={isSubmitting}
                     disabled={isSubmitting}
