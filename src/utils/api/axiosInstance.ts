@@ -3,7 +3,8 @@ import ERROR_MESSAGES from "../../config/error.config";
 import { toast } from "react-hot-toast";
 import { CustomAxiosRequestConfig } from "@/config/axios.config";
 import cookieAuth from "@/utils/auth/cookie.auth";
-
+import store from "@/lib/redux/store";
+import { loginFailure, logout } from "@/lib/redux/actions/auth.action";
 // Extend AxiosRequestConfig to add requiresAuth property
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: "http://localhost:4000/api",
@@ -50,16 +51,17 @@ axiosInstance.interceptors.response.use(
     } else if (data?.type === "authentication") {
       message = `Authentication Error: ${data.message}`;
     }
+    toast.error(message);
     console.log("error", error.response);
     if (status === 401) {
+      store.dispatch(logout());
       // Redirect
       if (typeof window !== "undefined") {
         window.location.href = "/";
-        toast.error(message);
       }
     } else {
       // window.location.href = "/signin";
-      toast.error(message);
+      store.dispatch(loginFailure("Invalid credentials"));
     }
 
     return Promise.reject(error);
