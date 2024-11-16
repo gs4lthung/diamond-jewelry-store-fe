@@ -6,8 +6,6 @@ import getAccessAndRefreshCookie from '@/utilities/authUtils/getCookieForValidat
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Divider, Input } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import { BiEdit } from 'react-icons/bi';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { Formik, Form, Field, FormikHelpers, FieldInputProps, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import uploadFile from '@/utils/upload';
@@ -102,9 +100,9 @@ const Profile: React.FC = () => {
                 };
 
                 await dispatch(patchUpdateProfile({ profileData: updateData })).unwrap();
-                toast.success("Cập nhật thông tin thành công!", {
-                    autoClose: 1500,
-                });
+                // toast.success("Cập nhật thông tin thành công!", {
+                //     autoClose: 1500,
+                // });
                 setIsEditing(false);
                 setItems(prevItems => {
                     if (prevItems === null) return null;
@@ -316,7 +314,6 @@ const Profile: React.FC = () => {
                     </Card>
                 </div>
             </div>
-            <ToastContainer />
         </div>
     );
 };
