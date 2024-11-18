@@ -7,7 +7,7 @@ import store from "@/lib/redux/store";
 import { loginFailure, logout } from "@/lib/redux/actions/auth.action";
 // Extend AxiosRequestConfig to add requiresAuth property
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL: process.env.BASE_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
