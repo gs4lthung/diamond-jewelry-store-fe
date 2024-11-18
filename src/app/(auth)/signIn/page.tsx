@@ -151,8 +151,10 @@ export default function Login() {
                       ) : null}
                     </div>
                   </div>
-                  <div className="flex items-center">
-                    <Input type="checkbox" name="rememberMe" className="w-10" />
+
+                  <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+                    {error && <ErrorMsg message={error} color="red" />}
+                 <div className="flex items-center">  <Input type="checkbox" name="rememberMe" className="w-10" />
                     <label
                       htmlFor="rememberMe"
                       className="ml-2 block text-sm text-gray-700"
@@ -160,18 +162,24 @@ export default function Login() {
                       Remember Me
                     </label>
                   </div>
-                  <div className="flex items-center justify-between">
-                    {error && <ErrorMsg message={error} color="red" />}
-                    <div style={{fontSize:"14px"}}>Forgot password</div>
+                      <div className="">
+                        
+                    <Link href='/forgotPass' className='text-blue-500 hover:text-orange-600'>Forgot Password?</Link>
+                        </div>
+
+                  
                   </div>
-                  <Button
+                  {/* <Button
                     isLoading={isSubmitting}
                     disabled={isSubmitting}
                     type="submit"
                     className="bg-gradient-to-tr w-full from-pink-500 to-yellow-500 text-white shadow-lg"
                   >
                     Sign In
-                  </Button>
+                  </Button> */}
+                  <Button disabled={isLoading} type='submit' className='bg-gradient-to-tr w-full from-pink-500 to-yellow-500 text-white shadow-lg'>
+                                            {isLoading ? <Spinner color="default" /> : 'Sign In'}
+                                        </Button>
                 </Form>
                 <div className="relative mt-5">
                   <div className="absolute inset-0 flex items-center">
