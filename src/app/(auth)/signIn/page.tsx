@@ -56,7 +56,7 @@ export default function Login() {
       console.log("values", values);
       const response = await axiosInstance.post(`/auth/login`, values, {
         requiresAuth: true,
-      } as CustomAxiosRequestConfig);
+      } as CustomAxiosRequestConfig)
       console.log("response", response);
 
       cookieAuth.setAuthData(response.data.token);
