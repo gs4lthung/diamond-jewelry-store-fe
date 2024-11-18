@@ -279,7 +279,7 @@ const Profile: React.FC = () => {
                                             <Button
                                                 className="ml-5"
                                                 onClick={() => {
-                                                    setIsEditing(false);
+                                                    setIsEditing(false);    
                                                     setFieldValue('firstName', items?.firstName || '');
                                                     setFieldValue('lastName', items?.lastName || '');
                                                     setFieldValue('email', items?.email || '');
