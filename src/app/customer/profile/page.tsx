@@ -1,21 +1,11 @@
-"use client"
-// import { fetchUserInforPagination, patchUpdateProfile } from '@/lib/redux/slice/userSlice';
-// import { useAppDispatch } from '@/lib/redux/store';
-import { UserInfor, updateProfileInput } from '@/models/userModels';
-import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Divider, Input } from '@nextui-org/react';
+"use client";
 import React, { useEffect, useState } from 'react';
+import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Divider, Input } from '@nextui-org/react';
 import { BiEdit } from 'react-icons/bi';
-import { Formik, Form, Field, FormikHelpers, FieldInputProps, FormikProps } from 'formik';
+import { Formik, Form, Field, FieldInputProps, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import uploadFile from '@/utils/upload';
-import { FcPlus } from 'react-icons/fc';
 import { MdFlipCameraIos } from 'react-icons/md';
-
-
-
-const ErrorMessage: React.FC<{ message?: string }> = ({ message }) => {
-    return message ? <div className="text-red-500 text-sm mt-1">{message}</div> : null;
-};
+import uploadFile from '@/utils/upload';
 
 const Profile: React.FC = () => {
     const validationSchema = Yup.object().shape({
@@ -23,281 +13,188 @@ const Profile: React.FC = () => {
             .required('Tên Họ là bắt buộc')
             .min(2, 'Tên Họ phải có ít nhất 2 ký tự')
             .max(20, 'Tên Họ không được vượt quá 20 ký tự'),
-
         lastName: Yup.string()
-            .required('Tên Họ là bắt buộc')
-            .min(2, 'Tên của bạn phải có ít nhất 2 ký tự')
-            .max(20, 'Tên của bạn không được vượt quá 20 ký tự'),
-
-        email: Yup.string()
-            .email('Địa chỉ email không hợp lệ')
-            .required('Email là bắt buộc'),
+            .required('Tên là bắt buộc')
+            .min(2, 'Tên phải có ít nhất 2 ký tự')
+            .max(20, 'Tên không được vượt quá 20 ký tự'),
+        email: Yup.string().email('Email không hợp lệ').required('Email là bắt buộc'),
         phone: Yup.string()
-            .matches(/^[0-9]+$/, 'Số điện thoại không hợp lệ')
-            .matches(/^(0[0-9]{9})$/, 'Số điện thoại phải bắt đầu bằng số 0 và có đúng 10 số')
-            .required('Số điện thoại là bắt buộc')
+            .matches(/^[0-9]+$/, 'Số điện thoại chỉ chứa số')
+            .matches(/^0[0-9]{9}$/, 'Số điện thoại phải bắt đầu bằng số 0 và có 10 chữ số')
+            .required('Số điện thoại là bắt buộc'),
     });
-    const [previewImage, setPreviewImage] = useState("");
 
-    // const dispatch = useAppDispatch();
-    const [userId, setUserId] = useState<string>('');
-    const [items, setItems] = useState<UserInfor | null>(null);
     const [isEditing, setIsEditing] = useState(false);
-    const [serverError, setServerError] = useState<string | null>(null);
+    const [previewImage, setPreviewImage] = useState('');
+    const [items, setItems] = useState({
+        firstName: 'Nguyen',
+        lastName: 'Van A',
+        email: 'example@example.com',
+        phone: '0123456789',
+        profileImageUrl: '',
+    });
 
-    // useEffect(() => {
-    //     const fetchUserInformation = async () => {
-    //         if (userId) {
-    //             try {
-    //                 const response = await dispatch(fetchUserInforPagination());
-    //                 const userInfo = response.payload;
-    //                 setItems(userInfo);
-    //             } catch (error) {
-    //                 console.error('Error fetching user information:', error);
-    //             }
-    //         }
-    //     };
-
-    //     fetchUserInformation();
-    // }, [dispatch, userId]);
-
-    const handleEditClick = () => {
-        setIsEditing(true);
-        setServerError(null);
-    };
-    useEffect(() => {
-        const storedImage = localStorage.getItem('profileImageUrl');
-        if (storedImage) {
-            setPreviewImage(storedImage);
+    const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target && event.target.files && event.target.files[0]) {
+            const file = event.target.files[0];
+            const fileUrl = await uploadFile(file.name, file); // Upload logic
+            setItems({ ...items, profileImageUrl: fileUrl });
+            setPreviewImage(fileUrl);
         }
-    }, []);
+    };
 
-    const handleUpdate = async (values: updateProfileInput, { setSubmitting }: FormikHelpers<updateProfileInput>) => {
+    const handleUpdate = async (values: typeof items, { setSubmitting }: FormikHelpers<typeof items>) => {
         try {
-            if (userId) {
-                const updateData: updateProfileInput = {
-                    id: userId,
-                    firstName: values.firstName,
-                    lastName: values.lastName,
-                    email: values.email,
-                    phone: values.phone,
-                    profileImageUrl: values.profileImageUrl
-                };
-
-                // await dispatch(patchUpdateProfile({ profileData: updateData })).unwrap();
-                // toast.success("Cập nhật thông tin thành công!", {
-                //     autoClose: 1500,
-                // });
-                setIsEditing(false);
-                setItems(prevItems => {
-                    if (prevItems === null) return null;
-
-                    return {
-                        ...prevItems,
-                        firstName: updateData.firstName ?? prevItems.firstName,
-                        lastName: updateData.lastName ?? prevItems.lastName,
-                        email: updateData.email ?? prevItems.email,
-                        phone: updateData.phone ?? prevItems.phone,
-                        profileImageUrl: updateData.profileImageUrl ?? prevItems.profileImageUrl
-                    };
-                });
-            }
+            // Simulate API update
+            setItems(values);
+            setIsEditing(false);
         } catch (error) {
-            console.error('Lỗi cập nhật:', error);
-            setServerError("Đã xảy ra lỗi khi cập nhật thông tin. Vui lòng thử lại sau!");
+            console.error('Error updating profile:', error);
         } finally {
             setSubmitting(false);
         }
     };
-    const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target && event.target.files && event.target.files[0]) {
-            const file = event.target.files[0];
-            const fileName = file.name;
-            const fileUrl = await uploadFile(fileName, file);
-            setItems(prevItems => {
-                if (prevItems === null) return null;
 
-                return {
-                    ...prevItems,
-                    profileImageUrl: fileUrl,
-                };
-            });
-
-
-            setPreviewImage(fileUrl)
-            localStorage.setItem('profileImageUrl', fileUrl);
-        }
-    };
     return (
-        <div className='max-h-screen mt-20'>
-            <div
-                style={{
-                    backgroundImage: 'url(https://i.pinimg.com/originals/5b/15/2a/5b152a7d4faa4b8ffb158eaa95fde428.jpg)',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    width: '100%',
-                    height: '21px'
-                }}>
+        <div className="max-h-screen mt-10 mr-20">
+            {/* Profile Picture Section */}
+            <div className="flex justify-center items-center w-full">
+                <div className="relative w-24 h-24">
+                    <Avatar
+                        src={previewImage || items.profileImageUrl || 'https://via.placeholder.com/150'}
+                        size="lg"
+                        className="w-full h-full object-cover"
+                    />
+                    {isEditing && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full">
+                            <label htmlFor="file-upload" className="cursor-pointer">
+                                <MdFlipCameraIos className="text-white h-6 w-6" />
+                            </label>
+                            <input
+                                id="file-upload"
+                                type="file"
+                                hidden
+                                onChange={handleUpload}
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
-            <div className='container relative'>
-                <div className="flex justify-center items-center w-full">
-                    <div className='relative w-20 h-20'>
-                        <Avatar
-                            src={previewImage || items?.profileImageUrl}
-                            size="lg"
-                            className="w-full h-full object-cover"
-                            onClick={() => document.getElementById('label-upload')?.click()}
-                        />
 
-                        {isEditing && (
-                            <div>
-                                <input type="file" hidden id="label-upload" onChange={handleUpload} />
-                                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer rounded-full"
-                                    onClick={() => document.getElementById('label-upload')?.click()}>
-                                    <MdFlipCameraIos className="text-white h-6 w-6" />
-                                </div>
-                            </div>
+            {/* Form Section */}
+            <div className="container mt-6 flex justify-center">
+                <Card className="w-full max-w-xl">
+                    <CardHeader>
+                        <div className="text-center">
+                            <h2 className="text-2xl font-bold">Tài Khoản</h2>
+                            <p>Thay đổi thông tin cá nhân của bạn.</p>
+                        </div>
+                    </CardHeader>
+                    <Divider />
+                    <Formik
+                        initialValues={items}
+                        validationSchema={validationSchema}
+                        onSubmit={handleUpdate}
+                        enableReinitialize
+                    >
+                        {({ errors, touched, isSubmitting, setFieldValue }) => (
+                            <Form>
+                                <CardBody>
+                                    <div className="space-y-4">
+                                        <Field name="firstName">
+                                            {({ field }: { field: FieldInputProps<string> }) => (
+                                                <>
+                                                    <Input
+                                                        {...field}
+                                                        label="Họ"
+                                                        disabled={!isEditing}
+                                                        className={errors.firstName && touched.firstName ? 'border-red-500' : ''}
+                                                    />
+                                                    {errors.firstName && touched.firstName && (
+                                                        <p className="text-red-500 text-sm">{errors.firstName}</p>
+                                                    )}
+                                                </>
+                                            )}
+                                        </Field>
+                                        <Field name="lastName">
+                                            {({ field }: { field: FieldInputProps<string> }) => (
+                                                <>
+                                                    <Input
+                                                        {...field}
+                                                        label="Tên"
+                                                        disabled={!isEditing}
+                                                        className={errors.lastName && touched.lastName ? 'border-red-500' : ''}
+                                                    />
+                                                    {errors.lastName && touched.lastName && (
+                                                        <p className="text-red-500 text-sm">{errors.lastName}</p>
+                                                    )}
+                                                </>
+                                            )}
+                                        </Field>
+                                        <Field name="email">
+                                            {({ field }: { field: FieldInputProps<string> }) => (
+                                                <>
+                                                    <Input
+                                                        {...field}
+                                                        label="Email"
+                                                        disabled={!isEditing}
+                                                        className={errors.email && touched.email ? 'border-red-500' : ''}
+                                                    />
+                                                    {errors.email && touched.email && (
+                                                        <p className="text-red-500 text-sm">{errors.email}</p>
+                                                    )}
+                                                </>
+                                            )}
+                                        </Field>
+                                        <Field name="phone">
+                                            {({ field }: { field: FieldInputProps<string> }) => (
+                                                <>
+                                                    <Input
+                                                        {...field}
+                                                        label="Số điện thoại"
+                                                        disabled={!isEditing}
+                                                        className={errors.phone && touched.phone ? 'border-red-500' : ''}
+                                                    />
+                                                    {errors.phone && touched.phone && (
+                                                        <p className="text-red-500 text-sm">{errors.phone}</p>
+                                                    )}
+                                                </>
+                                            )}
+                                        </Field>
+                                    </div>
+                                </CardBody>
+                                {isEditing && (
+                                    <CardFooter>
+                                        <Button
+                                            type="submit"
+                                            color="success"
+                                            disabled={isSubmitting}
+                                        >
+                                            {isSubmitting ? 'Đang lưu...' : 'Lưu'}
+                                        </Button>
+                                        <Button
+                                            type="button"
+                                            className="ml-4"
+                                            onClick={() => setIsEditing(false)}
+                                        >
+                                            Huỷ
+                                        </Button>
+                                    </CardFooter>
+                                )}
+                                {!isEditing && (
+                                    <CardFooter className="justify-center">
+                                        <Button
+                                            startContent={<BiEdit />}
+                                            onClick={() => setIsEditing(true)}
+                                        >
+                                            Chỉnh sửa
+                                        </Button>
+                                    </CardFooter>
+                                )}
+                            </Form>
                         )}
-
-                    </div>
-                </div>
-                <div className='justify-center flex items-center mt-2'>
-                    <h1 className='text-2xl font-bold uppercase mr-2'>{items?.firstName || ''}</h1>
-                    <h1 className='text-2xl font-bold uppercase'>{items?.lastName || ''}</h1>
-                </div>
-                <div className='flex justify-end'>
-                    <div className='absolute mt-2'>
-                        {!isEditing && (
-                            <Button onClick={handleEditClick} startContent={<BiEdit className="h-4 w-4" />}>
-                                Chỉnh sửa
-                            </Button>
-                        )}
-                    </div>
-                </div>
-                <Divider />
-                <div className='container mt-4 flex justify-center'>
-                    <Card className='w-[550px] p-4'
-                        style={{
-                            backgroundImage: 'url(https://i.pinimg.com/564x/a6/b0/89/a6b0891684b7e9d0ddc6262191ff340c.jpg)',
-                            backgroundSize: 'top',
-                        }}>
-                        <CardHeader className='w-full flex justify-center text-center'>
-                            <div>
-                                <p className='text-3xl text-white uppercase font-bold'>Tài Khoản</p>
-                                <p className='text-white'>
-                                    Thực hiện thay đổi cho tài khoản của bạn tại đây.
-                                </p>
-                            </div>
-                        </CardHeader>
-                        <Formik<updateProfileInput>
-                            initialValues={{
-                                id: userId,
-                                firstName: items?.firstName || '',
-                                lastName: items?.lastName || '',
-                                email: items?.email || '',
-                                phone: items?.phone || 0,
-                                profileImageUrl: items?.profileImageUrl || 's'
-                            }}
-                            validationSchema={validationSchema}
-                            onSubmit={handleUpdate}
-                            enableReinitialize
-                        >
-                            {({ isSubmitting, errors, touched, setFieldValue }) => (
-                                <Form>
-                                    <CardBody className="space-y-2">
-                                        <div className="space-y-1">
-                                            <p className='text-white'>Họ</p>
-                                            <Field name="firstName">
-                                                {({ field, form }: { field: FieldInputProps<string>; form: FormikProps<updateProfileInput> }) => (
-                                                    <>
-                                                        <Input
-                                                            {...field}
-                                                            id="firstName"
-                                                            disabled={!isEditing}
-                                                        />
-                                                        <ErrorMessage message={form.touched.firstName && form.errors.firstName ? form.errors.firstName as string : undefined} />
-                                                    </>
-                                                )}
-                                            </Field>
-                                        </div>
-                                        <div className="space-y-1">
-                                            <p className='text-white'>Tên</p>
-                                            <Field name="lastName">
-                                                {({ field, form }: { field: FieldInputProps<string>; form: FormikProps<updateProfileInput> }) => (
-                                                    <>
-                                                        <Input
-                                                            {...field}
-                                                            id="lastName"
-                                                            disabled={!isEditing}
-                                                        />
-                                                        <ErrorMessage message={form.touched.lastName && form.errors.lastName ? form.errors.lastName as string : undefined} />
-                                                    </>
-                                                )}
-                                            </Field>
-                                        </div>
-                                        <div className="space-y-1">
-                                            <p className='text-white'>Email</p>
-                                            <Field name="email">
-                                                {({ field, form }: { field: FieldInputProps<string>; form: FormikProps<updateProfileInput> }) => (
-                                                    <>
-                                                        <Input
-                                                            {...field}
-                                                            id="email"
-                                                            disabled={!isEditing}
-                                                        />
-                                                        <ErrorMessage message={form.touched.email && form.errors.email ? form.errors.email as string : undefined} />
-                                                    </>
-                                                )}
-                                            </Field>
-                                        </div>
-                                        <div className="space-y-1">
-                                            <p className='text-white'>Số điện thoại</p>
-                                            <Field name="phone">
-                                                {({ field, form }: { field: FieldInputProps<string>; form: FormikProps<updateProfileInput> }) => (
-                                                    <>
-                                                        <Input
-                                                            {...field}
-                                                            id="phone"
-                                                            disabled={!isEditing}
-                                                        />
-                                                        <ErrorMessage message={form.touched.phone && form.errors.phone ? form.errors.phone as string : undefined} />
-                                                    </>
-                                                )}
-                                            </Field>
-                                        </div>
-
-                                    </CardBody>
-                                    {isEditing && (
-                                        <CardFooter>
-                                            <Button
-                                                color="success"
-                                                type="submit"
-                                                disabled={isSubmitting || Object.keys(errors).length > 0}
-                                            >
-                                                {isSubmitting ? 'Đang lưu...' : 'Lưu'}
-                                            </Button>
-                                            <Button
-                                                className="ml-5"
-                                                onClick={() => {
-                                                    setIsEditing(false);    
-                                                    setFieldValue('firstName', items?.firstName || '');
-                                                    setFieldValue('lastName', items?.lastName || '');
-                                                    setFieldValue('email', items?.email || '');
-                                                    setFieldValue('phone', items?.phone?.toString() || '');
-                                                    setFieldValue('profileImageUrl', items?.profileImageUrl?.toString() || '');
-                                                }}
-                                                disabled={isSubmitting}
-                                            >
-                                                Huỷ
-                                            </Button>
-                                        </CardFooter>
-                                    )}
-                                    {serverError && <div className="text-red-500 mt-4">{serverError}</div>}
-                                </Form>
-                            )}
-                        </Formik>
-                    </Card>
-                </div>
+                    </Formik>
+                </Card>
             </div>
         </div>
     );
