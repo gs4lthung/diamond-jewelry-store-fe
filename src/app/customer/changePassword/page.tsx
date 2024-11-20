@@ -1,42 +1,25 @@
 "use client"
-import { fetchUserInforPagination, patchPasswordProfile, patchUpdateProfile } from '@/lib/redux/slice/userSlice';
-import { useAppDispatch } from '@/lib/redux/store';
+// import { fetchUserInforPagination, patchPasswordProfile, patchUpdateProfile } from '@/lib/redux/slice/userSlice';
+// import { useAppDispatch } from '@/lib/redux/store';
 import { UserInfor, passwordInfor, updatePasswordInput, updateProfileInput } from '@/models/userModels';
-import getAccessAndRefreshCookie from '@/utilities/authUtils/getCookieForValidation';
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Divider, Input, Tab, Tabs } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import { BiEdit } from 'react-icons/bi';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function Profile() {
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
     const [validationErrors, setValidationErrors] = useState<string[]>([]);
     const [items, setItems] = useState<passwordInfor>();
 
-    useEffect(() => {
-        const allService = async () => {
-            const response = await dispatch(fetchUserInforPagination());
-            setItems(response.payload);
-        }
-        allService();
-    }, [dispatch]);
+    // useEffect(() => {
+    //     const allService = async () => {
+    //         // const response = await dispatch(fetchUserInforPagination());
+    //         setItems(response.payload);
+    //     }
+    //     allService();
+    // }, [dispatch]);
 
     const [userId, setUserId] = useState<string>('');
-
-    useEffect(() => {
-        const fetchUid = async () => {
-            try {
-                const { uid } = await getAccessAndRefreshCookie();
-                if (uid) {
-                    setUserId(uid);
-                }
-            } catch (error) {
-                console.error('Error fetching UID:', error);
-            }
-        };
-        fetchUid();
-    }, [userId]);
 
     const [profileData, setProfileData] = useState<updatePasswordInput>({
         id: userId,
@@ -114,15 +97,16 @@ export default function Profile() {
         }
         try {
             if (userId) {
-                await dispatch(patchPasswordProfile({ profileData })).unwrap();
-                toast.success("Cập nhật dịch vụ thành công!", {
-                    autoClose: 1500,
-                });
+                // await dispatch(patchPasswordProfile({ profileData })).unwrap();
+                // toast.success("Cập nhật dịch vụ thành công!", {
+                //     autoClose: 1500,
+                // });
+                        // ko sử dụng react-toasify vì nó không hoạt động với nextjs, đổi qua dùng react-hot-toast
                 setIsEditing(false);
             }
         } catch (error) {
             console.error('Lỗi  cập nhật:', error);
-            toast.error("Đã xảy ra lỗi khi cập nhật dịch vụ. Vui lòng thử lại sau!");
+            // toast.error("Đã xảy ra lỗi khi cập nhật dịch vụ. Vui lòng thử lại sau!");
         }
     };
 
@@ -225,7 +209,6 @@ export default function Profile() {
                     </Tabs>
                 </div>
             </div>
-            <ToastContainer />
         </div>
     )
 }

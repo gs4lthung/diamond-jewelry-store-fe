@@ -10,34 +10,32 @@ import {
     useDisclosure,
     Tooltip,
 } from '@nextui-org/react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { FaEye } from 'react-icons/fa';
 
-import { useAppDispatch } from '@/lib/redux/store';
+// import { useAppDispatch } from '@/lib/redux/store';
 import { CusInfor } from '@/models/adminModel';
-import { fetchShopInfor } from '@/lib/redux/slice/adminSlice';
+// import { fetchShopInfor } from '@/lib/redux/slice/adminSlice';
 
 export default function AccountCusDetail({ params }: { params: string }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [customer, setCustomer] = useState<CusInfor | null>(null);
-    const dispatch = useAppDispatch();
-    // const data = await getPost((await params).id)
-    const fetchCustomerDetails = async () => {
-        try {
-            const response = await dispatch(fetchShopInfor({ slug: params }));
-            if (response.payload) {
-                setCustomer(response.payload);
-            }
-        } catch (error) {
-            console.error('Error fetching customer details:', error);
-            toast.error('Failed to fetch customer details.');
-        }
-    };
+    // const dispatch = useAppDispatch();
+
+    // const fetchCustomerDetails = async () => {
+    //     try {
+    //         const response = await dispatch(fetchShopInfor({ slug: params }));
+    //         if (response.payload) {
+    //             setCustomer(response.payload);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching customer details:', error);
+    //         toast.error('Failed to fetch customer details.');
+    //     }
+    // };
 
     const handleOpen = () => {
-        fetchCustomerDetails();
+        // fetchCustomerDetails();
         onOpen();
     };
 
@@ -89,7 +87,6 @@ export default function AccountCusDetail({ params }: { params: string }) {
                     </ModalFooter>
                 </ModalContent>
             </Modal>
-            <ToastContainer />
         </div>
     );
 };

@@ -1,12 +1,10 @@
-
-"use client"
+"use client";
 
 import Footer from "@/components/footer";
 import { HeaderAuth } from "@/components/headerAuth";
 import { HeaderLogo } from "@/components/headerlogo";
 import { Navbar } from "@/components/navbar";
 import React, { useEffect, useState } from "react";
-
 
 export default function HomeLayout({
   children,

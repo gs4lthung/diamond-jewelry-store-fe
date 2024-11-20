@@ -2,8 +2,8 @@
 
 import AccountCusDetail from "@/components/accCusDe";
 import DeleteCus from "@/components/deleteAccCus";
-import { fetchAllCusPagination } from "@/lib/redux/slice/adminSlice";
-import { useAppDispatch } from "@/lib/redux/store";
+// import { fetchAllCusPagination } from "@/lib/redux/slice/adminSlice";
+// import { useAppDispatch } from "@/lib/redux/store";
 import {
   Spinner,
   Table,
@@ -50,7 +50,7 @@ export default function ManageAccCus() {
   }, []);
   // const [customers, setCustomers] = useState<allCusPaginationData[]>([]);
   const totalCustomers = customers.length;
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 //   const fetchCustomers = async () => {
 //     setLoading(true);
 //     try {

@@ -7,8 +7,8 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import ScrollToTopBtn from "@/components/button/scrollToTopBtn";
-import { Provider } from "react-redux"; // Import Redux Provider
-import { store } from "@/lib/redux/store"; // Import your store
+import { Provider as ReduxProvider } from "react-redux"; // Import Redux Provider
+import store from "@/lib/redux/store";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -19,7 +19,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   const router = useRouter();
 
   return (
-    <Provider store={store}> {/* Wrap with Redux Provider */}
+    <ReduxProvider store={store}>
       <NextUIProvider navigate={router.push}>
         <NextThemesProvider {...themeProps}>
           {children}
@@ -29,9 +29,9 @@ export function Providers({ children, themeProps }: ProvidersProps) {
             options={{ showSpinner: false }}
             shallowRouting={true}
           />
-          <ScrollToTopBtn/>
+          <ScrollToTopBtn />
         </NextThemesProvider>
       </NextUIProvider>
-    </Provider>
+    </ReduxProvider>
   );
 }
