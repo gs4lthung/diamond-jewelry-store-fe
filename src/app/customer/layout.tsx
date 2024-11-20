@@ -1,18 +1,13 @@
-
-"use client"
+"use client";
 
 import Footer from "@/components/footer";
 import { HeaderAuth } from "@/components/headerAuth";
 import { HeaderLogo } from "@/components/headerlogo";
+import MenuSideBarCus from "@/components/menuSideBarCus";
 import { Navbar } from "@/components/navbar";
 import React, { useEffect, useState } from "react";
 
-
-export default function HomeLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function HomeLayout({ children }: { children: React.ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -25,25 +20,27 @@ export default function HomeLayout({
   }, []);
 
   return (
-    <div className="flex flex-col">
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          padding: "0",
-          zIndex: 50,
-          transform: "translateY(-5px)",
-          backgroundColor: "white",
-        }}
-      >
-        {!isScrolled && <HeaderAuth />}
-        {!isScrolled && <HeaderLogo />}
-        <Navbar />
+    <div className="min-h-screen flex flex-col">
+      {/* Header */}
+      <div className={`${isScrolled ? 'hidden' : ''}`}>
+        <HeaderAuth />
+        <HeaderLogo />
+        <Navbar/>
       </div>
-      <main className="flex-grow w-full mt-[120px]">{children}</main>
+
+      {/* Main Layout */}
+      <div className="flex flex-1">
+        {/* Sidebar */}
+        <MenuSideBarCus />
+
+        {/* Main Content */}
+        <div className="flex-1 p-6 ml-4 mt-0">{children}</div>
+
+      </div>
+
+      {/* Footer */}
       <Footer />
     </div>
   );
 }
+

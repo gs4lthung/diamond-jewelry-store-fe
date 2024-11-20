@@ -23,7 +23,7 @@ export default function AccountCusDetail({ params }: { params: string }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [customer, setCustomer] = useState<CusInfor | null>(null);
     const dispatch = useAppDispatch();
-
+    // const data = await getPost((await params).id)
     const fetchCustomerDetails = async () => {
         try {
             const response = await dispatch(fetchShopInfor({ slug: params }));

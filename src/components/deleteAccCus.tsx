@@ -18,7 +18,7 @@ import { deleteCus } from '@/lib/redux/slice/adminSlice';
 export default function DeleteCus({ params }: { params: string }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const dispatch = useAppDispatch();
-
+    // const data = await getPost((await params).id)
     const handleDelete = async () => {
         try {
             await dispatch(deleteCus({ slug: params })).unwrap();
