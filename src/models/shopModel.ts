@@ -235,6 +235,61 @@ export interface allServicePaginationData {
     servicePhoto: string
 
 }
+
+export interface allDiamondPaginationData {
+    diamond_id: string,
+    diamond_code: string,
+    diamond_name: string,
+    origin : string,
+    proportions: number,
+    polish: number,
+    symmetry: number,
+    flowescense: number,
+    colors: string,
+    Cut: string
+    Carat_weight :string ,
+    Status: boolean,
+    Product_Id : string 
+}
+export interface DiamondInfor {
+    slug : string | null | undefined,
+    diamond_id: string,
+    diamond_code: string,
+    diamond_name: string,
+    origin : string,
+    proportions: number,
+    polish: number,
+    symmetry: number,
+    flowescense: number,
+    colors: string,
+    Cut: string
+    Carat_weight :string ,
+    Status: boolean,
+    Product_Id : string 
+ }
+ export interface Product {
+    Product_id: string; // Primary Key
+    Product_Code: string; // Code for the product
+    Product_name: string; // Name of the product
+    Description: string; // Description of the product
+    Cate_Id: string; // Foreign Key to Category table
+    Collection_id: string; // Foreign Key to Collection table
+    Gen_id: string; // Foreign Key to Generation/Type table
+    Dia_id: string; // Foreign Key to Diamond table
+  }
+  export interface DiamondPriceDetail {
+    Dia_PList_id: string; // Primary Key
+    Origin: string; // Origin of the diamond
+    Ct_Weight_From: number; // Carat weight range start
+    Ct_Weight_To: number; // Carat weight range end
+    Color: string; // Diamond color
+    Clarity: string; // Diamond clarity
+    Cut: string; // Diamond cut
+    Price: number; // Price for the diamond
+    Eff_date: string; // Effective date of the price
+  }
+  
+  
 export interface BookingComplete {
     bookingId: number,
 }
